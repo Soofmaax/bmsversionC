@@ -1,25 +1,33 @@
 # ==========================================================================
-# FICHIER DE CONFIGURATION NETLIFY POUR BMS VENTOUSE (VERSION FINALE CORRIGÉE)
+# FICHIER DE CONFIGURATION NETLIFY POUR BMS VENTOUSE
 # ==========================================================================
-# Ce fichier centralise la configuration du déploiement sur Netlify.
+# Ce fichier centralise la configuration du build et des déploiements sur Netlify.
+# Documentation : https://docs.netlify.com/configure-builds/file-based-configuration/
 
 # --------------------------------------------------------------------------
 # SECTION BUILD : Instructions pour construire le site
 # --------------------------------------------------------------------------
-# Pour un site statique simple, il n'y a pas de commande de build.
-# Mais nous avons besoin de la section [build] pour spécifier le dossier de publication.
 [build]
-  # On laisse la commande vide, car il n'y a rien à construire.
-  command = ""
+  # Commande à exécuter pour construire le site.
+  # `npm install` installe les dépendances (Eleventy).
+  # `npm run build` lance le script de build défini dans package.json.
+  command = "npm install && npm run build"
 
-  # On dit à Netlify de publier le contenu de la racine du projet.
-  # C'est ce qui inclura tous vos dossiers (contact, services, etc.).
-  publish = "."
+  # Dossier à publier une fois la construction terminée.
+  # Eleventy génère le site dans le dossier `_site`.
+  publish = "_site/"
+
+  # Contexte de production : s'applique au déploiement principal.
+  [build.environment]
+    # Spécifie la version de Node.js à utiliser pour la construction.
+    # Utiliser une version LTS (Long-Term Support) est une bonne pratique.
+    NODE_VERSION = "18"
+
 
 # --------------------------------------------------------------------------
 # SECTION HEADERS : En-têtes HTTP pour la sécurité et la performance
 # --------------------------------------------------------------------------
-# Ces règles sont conservées car elles sont excellentes pour la sécurité.
+# Ces règles remplacent le fichier `_headers`.
 
 [[headers]]
   # Applique ces en-têtes à toutes les pages du site.
@@ -35,9 +43,12 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     # Sécurité : Bloque les fonctionnalités sensibles du navigateur.
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), usb=()"
+    # Sécurité : Content Security Policy (CSP) - à affiner si besoin.
+    # Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;"
 
 [[headers]]
   # Applique une politique de cache longue pour les assets qui ne changent pas souvent.
+  # Le navigateur les gardera en mémoire pendant un an.
   for = "/css/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
@@ -56,7 +67,7 @@
 # --------------------------------------------------------------------------
 # SECTION REDIRECTS : Redirections d'URL
 # --------------------------------------------------------------------------
-# Ces règles sont conservées.
+# Ces règles remplacent le fichier `_redirects`.
 
 [[redirects]]
   # Redirige les anciennes URLs vers la page d'accueil.
@@ -74,3 +85,10 @@
   from = "/services"
   to = "/#services" # Exemple si vous aviez une ancre sur la page d'accueil
   status = 301
+
+# Règle "catch-all" pour les erreurs 404.
+# Redirige toute page non trouvée vers la page d'accueil.
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 404
