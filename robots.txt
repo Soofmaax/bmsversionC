@@ -1,0 +1,32 @@
+# ==========================================================================
+# Fichier d'instructions pour les robots d'exploration (crawlers)
+# ==========================================================================
+# Ce fichier indique aux robots des moteurs de recherche (comme Googlebot)
+# quelles parties du site ils sont autorisés ou non à explorer.
+# Documentation : https://developers.google.com/search/docs/crawling-indexing/robots/intro
+
+# --------------------------------------------------------------------------
+# Règle pour tous les robots
+# --------------------------------------------------------------------------
+# L'astérisque (*) signifie que cette règle s'applique à tous les robots.
+User-agent: *
+
+# La directive "Allow" spécifie les chemins que les robots sont autorisés à explorer.
+# Un simple "/" signifie que tout le site est autorisé. C'est la configuration
+# standard pour un site public dont tout le contenu doit être indexé.
+Allow: /
+
+# La directive "Disallow" peut être utilisée pour bloquer l'accès à certaines
+# parties du site (par exemple, un dossier d'administration ou des fichiers privés).
+# Pour ce site, nous n'avons rien à bloquer.
+# Exemple : Disallow: /admin/
+
+
+# --------------------------------------------------------------------------
+# Emplacement du plan du site (Sitemap)
+# --------------------------------------------------------------------------
+# Cette ligne est l'une des plus importantes. Elle indique aux robots
+# l'emplacement du fichier sitemap.xml, qui contient la liste de toutes
+# les pages importantes du site. Cela aide les moteurs de recherche à
+# découvrir et à indexer le contenu plus efficacement.
+Sitemap: https://www.bmsventouse.fr/sitemap.xml
