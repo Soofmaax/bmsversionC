@@ -1,0 +1,94 @@
+# ==========================================================================
+# FICHIER DE CONFIGURATION NETLIFY POUR BMS VENTOUSE
+# ==========================================================================
+# Ce fichier centralise la configuration du build et des déploiements sur Netlify.
+# Documentation : https://docs.netlify.com/configure-builds/file-based-configuration/
+
+# --------------------------------------------------------------------------
+# SECTION BUILD : Instructions pour construire le site
+# --------------------------------------------------------------------------
+[build]
+  # Commande à exécuter pour construire le site.
+  # `npm install` installe les dépendances (Eleventy).
+  # `npm run build` lance le script de build défini dans package.json.
+  command = "npm install && npm run build"
+
+  # Dossier à publier une fois la construction terminée.
+  # Eleventy génère le site dans le dossier `_site`.
+  publish = "_site/"
+
+  # Contexte de production : s'applique au déploiement principal.
+  [build.environment]
+    # Spécifie la version de Node.js à utiliser pour la construction.
+    # Utiliser une version LTS (Long-Term Support) est une bonne pratique.
+    NODE_VERSION = "18"
+
+
+# --------------------------------------------------------------------------
+# SECTION HEADERS : En-têtes HTTP pour la sécurité et la performance
+# --------------------------------------------------------------------------
+# Ces règles remplacent le fichier `_headers`.
+
+[[headers]]
+  # Applique ces en-têtes à toutes les pages du site.
+  for = "/*"
+  [headers.values]
+    # Sécurité : Empêche le clickjacking.
+    X-Frame-Options = "DENY"
+    # Sécurité : Empêche le navigateur de "deviner" le type de contenu.
+    X-Content-Type-Options = "nosniff"
+    # Sécurité : Active la protection contre les attaques XSS (Cross-Site Scripting).
+    X-XSS-Protection = "1; mode=block"
+    # Sécurité & Vie Privée : Contrôle les informations envoyées lors de la navigation.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Sécurité : Bloque les fonctionnalités sensibles du navigateur.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), usb=()"
+    # Sécurité : Content Security Policy (CSP) - à affiner si besoin.
+    # Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:;"
+
+[[headers]]
+  # Applique une politique de cache longue pour les assets qui ne changent pas souvent.
+  # Le navigateur les gardera en mémoire pendant un an.
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+
+# --------------------------------------------------------------------------
+# SECTION REDIRECTS : Redirections d'URL
+# --------------------------------------------------------------------------
+# Ces règles remplacent le fichier `_redirects`.
+
+[[redirects]]
+  # Redirige les anciennes URLs vers la page d'accueil.
+  from = "/accueil"
+  to = "/"
+  status = 301 # Redirection permanente (bon pour le SEO)
+
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+# Redirection pour les ancres (si nécessaire)
+[[redirects]]
+  from = "/services"
+  to = "/#services" # Exemple si vous aviez une ancre sur la page d'accueil
+  status = 301
+
+# Règle "catch-all" pour les erreurs 404.
+# Redirige toute page non trouvée vers la page d'accueil.
+[[redirects]]
+  from = "/*"
+  to = "/"
+  status = 404
