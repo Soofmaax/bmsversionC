@@ -1,501 +1,193 @@
 /* ==========================================================================
-   Feuille de style principale pour BMS Ventouse
-   Version: 7.1 (Optimisations et améliorations globales)
+   FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1)
+   ---------------------------------------------
+   - Fusion du design pro/épuré de la V2
+   - Puissance technique (dark mode, accessibilité) de la V7.1
+   - Commentaires détaillés pour chaque bloc !
    ========================================================================== */
+
 
 /* ==========================================================================
    1. VARIABLES GLOBALES & FONDATIONS
    ========================================================================== */
 
 /* 
-   Déclaration des variables CSS globales. 
-   Ces variables contrôlent les couleurs, la typographie, les espacements, etc.
-   Pour modifier l'apparence générale du site, il suffit de changer ici !
+   Les variables CSS permettent de changer toute l'identité visuelle ici :
+   - couleurs
+   - typos
+   - espacements
+   - arrondis
+   - ombres
+   - transitions
+   Modifie-les pour modifier l'apparence générale du site !
 */
 :root {
-  /* --- Couleurs du thème clair (par défaut) --- */
-  --color-primary: #FF8C42;         /* Couleur principale (orange) pour boutons, liens, accents */
-  --color-primary-dark: #e67e22;    /* Variante plus foncée pour hover/surbrillance */
-  --color-bg: #ffffff;              /* Couleur de fond principale */
-  --color-bg-alt: #f8f9fa;          /* Couleur de fond alternative (sections, hover) */
-  --color-surface: #ffffff;         /* Fond des cartes et surfaces surélevées */
-  --color-text: #2c3e50;            /* Couleur du texte principal */
-  --color-text-muted: #6c757d;      /* Texte secondaire, descriptions */
-  --color-border: #dee2e6;          /* Couleur des bordures */
-  --color-heading: #212529;         /* Couleur des titres */
-  --color-overlay: rgba(44, 62, 80, 0.7);     /* Overlay sombre (ex: hero, modals) */
-  --color-hover-overlay: rgba(255, 140, 66, 0.15); /* Overlay orange sur hover */
-  --overlay-opacity: 0.7;           /* Opacité de l'overlay (ex: hero) */
+  /* === Palette principale === */
+  --color-primary: #FF8C42;           /* Orange principal (boutons, accents) */
+  --color-primary-dark: #e67e22;      /* Orange foncé (hover, surbrillance) */
+  --color-dark: #2c3e50;              /* Sombre (footer, titres, header) */
+  --color-dark-lighten: #34495e;      /* Sombre plus doux (footer clair) */
+  --color-light: #ffffff;             /* Blanc pur (fonds, texte clair) */
+  --color-light-alt: #f8f9fa;         /* Blanc cassé, pour fonds alternatifs */
+  --color-text: #333;                 /* Texte principal */
+  --color-text-muted: #666;           /* Texte secondaire, descriptions */
+  --color-border: #e0e0e0;            /* Bordures discrètes */
 
-  /* --- Typographie & Espacements --- */
+  /* === Typographie === */
   --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-size-base: 1rem;           /* Taille de police de base (16px) */
-  --font-size-h1: clamp(2.2rem, 6vw, 3.5rem); /* Taille responsive pour H1 */
-  --font-size-h3: clamp(1.3rem, 3vw, 1.4rem); /* Idem pour H3 */
-  --line-height-base: 1.7;          /* Hauteur de ligne globale */
-  --line-height-heading: 1.3;       /* Hauteur de ligne pour titres */
-  --header-height: 70px;            /* Hauteur du header (important pour le scroll) */
-  --container-width: 1200px;        /* Largeur max du contenu principal */
-  --spacing-section: 60px;          /* Espace vertical entre les sections */
-  --footer-gap: 2rem;               /* Espacement entre colonnes du footer */
+  --font-size-base: 1rem;            /* Taille de police par défaut (16px) */
+  --font-size-h1: clamp(2.2rem, 6vw, 3.5rem); /* Responsive H1 */
+  --font-size-h3: clamp(1.3rem, 3vw, 1.4rem); /* Responsive H3 */
+  --line-height-base: 1.7;           /* Hauteur de ligne générale */
+  --line-height-heading: 1.3;        /* Hauteur de ligne titres */
 
-  /* --- Icônes & Divers --- */
-  --icon-size: 1rem;                /* Taille de base pour les icônes */
-  --border-radius-base: 8px;        /* Rayon de bordure standard pour boutons, cartes */
-  --border-radius-large: 12px;      /* Rayon de bordure plus grand (cartes) */
-  --transition-curve: cubic-bezier(0.25, 0.8, 0.25, 1); /* Courbe de transition fluide */
-  --transition-duration: 0.4s;      /* Durée des transitions */
-  --box-shadow-base: 0 4px 25px rgba(0, 0, 0, 0.07);  /* Ombre portée par défaut (cartes, boutons) */
-  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);  /* Ombre au survol */
-  --focus-outline-width: 3px;       /* Épaisseur du contour focus */
-  --btn-hover-scale: 1.02;          /* Effet de zoom au survol des boutons */
+  /* === Espacements & dimensions === */
+  --container-width: 1200px;         /* Largeur max du contenu */
+  --spacing-section: 80px;           /* Padding vertical entre sections */
+  --header-height: 70px;             /* Hauteur du header (fixe) */
+  --footer-gap: 2rem;                /* Espace entre colonnes du footer */
+
+  /* === Divers === */
+  --border-radius-base: 8px;         /* Arrondi standard (boutons, cartes) */
+  --border-radius-large: 12px;       /* Arrondi pour grosses cartes */
+  --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transition douce sur tout */
+  --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.08); /* Ombre légère par défaut */
+  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.11); /* Ombre au survol */
+  --focus-outline-width: 3px;        /* Epaisseur du contour focus */
+  --btn-hover-scale: 1.02;           /* Zoom léger au hover sur bouton */
 }
 
-/* 
-  Thème sombre : ces variables remplacent les couleurs du thème clair 
-  quand le body a la classe .dark-theme
+/* === Thème sombre === 
+   Les variables changent automatiquement quand le body a .dark-theme
+   ou via la préférence système.
 */
-body.dark-theme {
-  --color-bg: #1a202c;
-  --color-bg-alt: #2d3748;
-  --color-surface: #2d3748;
+body.dark-theme, 
+:root:has(body.dark-theme), 
+@media (prefers-color-scheme: dark) {
+  --color-light: #1a202c;
+  --color-light-alt: #2d3748;
   --color-text: #e2e8f0;
-  --color-text-muted: #b0c0d0; /* Meilleur contraste */
+  --color-text-muted: #b0c0d0;
   --color-border: #4a5568;
-  --color-heading: #ffffff;
-  --color-overlay: rgba(0, 0, 0, 0.6);
-  --color-hover-overlay: rgba(255, 140, 66, 0.1);
+  --color-dark: #ffffff; /* Titres deviennent blancs */
   --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
+
+/* ==========================================================================
+   2. RESET & ACCESSIBILITÉ
+   ========================================================================== */
+
 /* 
-  Thème sombre automatique selon la préférence système.
-  S'active si l'utilisateur a défini un mode sombre dans Windows/Mac.
-  Ne s'applique QUE si .dark-theme n'est pas déjà présent sur body.
+  RESET CSS : nécessaire pour avoir un rendu propre et cohérent sur tous les navigateurs.
+  - Enlève toutes les marges/paddings par défaut
+  - Active box-sizing border-box partout (plus pratique pour les layouts)
 */
-@media (prefers-color-scheme: dark) {
-  :root:not(body.dark-theme) {
-    --color-bg: #1a202c;
-    --color-bg-alt: #2d3748;
-    --color-surface: #2d3748;
-    --color-text: #e2e8f0;
-    --color-text-muted: #b0c0d0;
-    --color-border: #4a5568;
-    --color-heading: #ffffff;
-    --color-overlay: rgba(0, 0, 0, 0.6);
-    --color-hover-overlay: rgba(255, 140, 66, 0.1);
-    --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.2);
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* 
-  Réinitialisation CSS de base :
-  - Retire marges/paddings par défaut
-  - box-sizing : border-box partout (plus facile pour gérer les largeurs)
+/*
+  Active le scroll fluide pour les liens d'ancre sur toute la page.
 */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
 html {
-  scroll-behavior: smooth; /* Scroll fluide pour les ancres */
-  scroll-padding-top: var(--header-height); /* Décale le scroll sous le header fixe */
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height); /* Décale l'ancre sous le header */
 }
 
+/*
+  Styles de base pour <body> :
+  - Définit la police, la couleur de texte, le fond
+  - Lissage des polices pour un rendu plus net sur Mac
+*/
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
-  background-color: var(--color-bg);
   color: var(--color-text);
-  -webkit-font-smoothing: antialiased; /* Lissage police sur Mac */
-  -moz-osx-font-smoothing: grayscale;  /* Lissage police sur Mac */
-  overflow-x: hidden;                  /* Empêche le scroll horizontal */
-  transition:
-    background-color var(--transition-duration) var(--transition-curve),
-    color var(--transition-duration) var(--transition-curve);
+  background-color: var(--color-light);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.4s, color 0.4s;
 }
 
-a { 
-  color: var(--color-primary); 
-  text-decoration: none; 
-  transition: color 0.3s ease; 
+/*
+  Liens :
+  - Orange par défaut
+  - Changement de couleur au survol
+  - Pas de soulignement
+*/
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s;
 }
-a:hover { color: var(--color-primary-dark); }
-img { max-width: 100%; height: auto; }
+a:hover {
+  color: var(--color-primary-dark);
+}
 
-/* ==========================================================================
-   2. ACCESSIBILITÉ & OUTILS UTILITAIRES
-   ========================================================================== */
+/*
+  Images :
+  - Toujours responsive (jamais plus larges que leur conteneur)
+*/
+img {
+  max-width: 100%;
+  height: auto;
+}
 
-/* 
-  Lien d'accès rapide pour l'accessibilité (permet de sauter le menu principal).
-  Visible uniquement au focus (tabulation).
+/*
+  Lien "skip to content" pour l'accessibilité clavier
+  Permet aux utilisateurs de tabuler directement au contenu principal.
 */
 .skip-link {
   position: absolute;
   top: -40px;
-  left: 6px;
+  left: 8px;
   background: var(--color-primary);
   color: #fff;
-  padding: 8px;
-  text-decoration: none;
+  padding: 8px 14px;
   border-radius: var(--border-radius-base);
   z-index: 10000;
   transition: top 0.3s;
+  text-decoration: none;
 }
-.skip-link:focus { top: 6px; }
+.skip-link:focus {
+  top: 8px;
+}
 
-/* 
-  Cache un élément visuellement mais le garde accessible aux lecteurs d'écran.
-  (utile pour les descriptions ou titres cachés)
+/*
+  Classe utilitaire pour cacher un élément visuellement
+  (mais le garder accessible aux lecteurs d'écran)
 */
 .visually-hidden {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
 
-/* 
-  Largeur maximale et centrage du contenu.
-  Utiliser .container pour encadrer le contenu principal.
-*/
-.container { 
-  max-width: var(--container-width); 
-  margin: 0 auto; 
-  padding: 0 20px; 
-}
-
-/* Espacement vertical standard pour les sections */
-.section { padding: var(--spacing-section) 0; }
-
-/* 
-  Titres de section (gros, centrés)
-  Modifie la couleur/taille facilement via les variables.
-*/
-.section-title {
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: var(--color-heading);
-  font-size: var(--font-size-h1);
-  line-height: var(--line-height-heading);
-}
-
-/* Sous-titres de section, plus petits, couleur atténuée */
-.section-subtitle {
-  font-size: clamp(1rem, 2.5vw, 1.1rem);
-  text-align: center;
-  margin-bottom: 4rem;
-  color: var(--color-text-muted);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ==========================================================================
-   3. STRUCTURE (HEADER, NAVIGATION, FOOTER)
-   ========================================================================== */
-
-/* 
-  Header fixe en haut de page, semi-transparent, avec effet de flou.
-  Le border-bottom sépare visuellement le header du contenu.
-*/
-.header {
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(10px);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  border-bottom: 1px solid var(--color-border);
-  transition:
-    background-color var(--transition-duration) var(--transition-curve),
-    border-color var(--transition-duration) var(--transition-curve);
-}
-/* Version dark du header */
-body.dark-theme .header {
-  background: rgba(26, 32, 44, 0.8);
-}
-
-/* 
-  Navigation principale : 
-  Flexbox pour placer le logo, les liens, la recherche.
-*/
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: var(--header-height);
-  gap: 1rem;
-}
-.nav > * { flex: 0 0 auto; }
-.nav__wrapper { display: flex; align-items: center; gap: 1rem; }
-
-/* 
-  Logo du site : 
-  Texte + image alignés verticalement.
-*/
-.logo {
-  display: flex;
-  align-items: center;
-  font-size: 1.5rem;
-  font-weight: 800;
-  text-decoration: none;
-  color: var(--color-heading);
-}
-.logo img { width: 40px; height: 40px; margin-right: 12px; }
-.logo .bms { color: var(--color-primary); }
-
 /*
-  ---- MENU MOBILE (affiché sur petits écrans) ----
-  Par défaut, le menu est caché hors écran (transform: translateX(-100%)).
-  Quand on ajoute la classe .active, il coulisse à gauche.
-*/
-.nav-links {
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  width: 80%;
-  max-width: 320px;
-  height: calc(100vh - var(--header-height));
-  background-color: var(--color-surface);
-  padding: 2rem;
-  transform: translateX(-100%);
-  transition: transform 0.4s var(--transition-curve);
-  list-style: none;
-  z-index: 1002;
-  border-right: 1px solid var(--color-border);
-  will-change: transform;
-}
-.nav-links.active { transform: translateX(0); }
-
-/* Styles pour chaque lien du menu */
-.nav-link {
-  width: 100%;
-  text-align: left;
-  padding: 1rem;
-  font-size: 1.2rem;
-  color: var(--color-text);
-  font-weight: 500;
-  border-radius: var(--border-radius-base);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-.nav-link.active { font-weight: 700; color: var(--color-primary); }
-.nav-link:focus-visible {
-  background-color: var(--color-bg-alt);
-  outline: none;
-}
-
-/* 
-  Bouton "burger" pour ouvrir/fermer le menu mobile.
-  Les 3 <span> forment les barres du burger, animées à l'ouverture.
-*/
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  padding: 5px;
-  z-index: 1003;
-  background: none;
-  border: none;
-}
-.hamburger span {
-  width: 25px;
-  height: 3px;
-  background-color: var(--color-heading);
-  transition: all 0.4s var(--transition-curve);
-  border-radius: 2px;
-}
-.hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.hamburger.active span:nth-child(2) { opacity: 0; }
-.hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-/* 
-  Overlay sombre derrière le menu mobile.
-  S'affiche (visible + opaque) quand le menu est ouvert.
-*/
-.nav-overlay {
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  width: 100%;
-  height: calc(100vh - var(--header-height));
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
-  z-index: 1001;
-}
-.nav-overlay.active { opacity: 1; visibility: visible; }
-
-/* 
-  ---- FOOTER ----
-  Utilise une grille pour organiser les colonnes.
-  Couleur de fond sombre, texte atténué.
-*/
-.footer {
-  background-color: #2c3e50;
-  color: var(--color-text-muted);
-  padding-top: 4rem;
-}
-.footer-main { padding-bottom: 4rem; }
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--footer-gap);
-}
-.footer-brand .footer-logo { margin-bottom: 1rem; }
-.footer-brand .footer-description { color: var(--color-text-muted); }
-.footer-links { display: grid; gap: var(--footer-gap); }
-.footer-column h4 {
-  color: var(--color-primary);
-  margin-bottom: 1rem;
-  font-weight: 700;
-  font-size: var(--font-size-h3);
-  line-height: var(--line-height-heading);
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-}
-.footer-column ul { list-style: none; }
-.footer-column li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-.footer-column a {
-  color: var(--color-text-muted);
-  transition: color var(--transition-duration) var(--transition-curve), transform var(--transition-duration) var(--transition-curve);
-}
-.footer-column a:hover {
-  color: #fff;
-  transform: scale(1.05);
-}
-.footer-column a:focus-visible {
-  outline: var(--focus-outline-width) solid var(--color-primary);
-  outline-offset: 2px;
-}
-.footer-column i {
-  font-size: var(--icon-size);
-  margin-right: 0.75rem;
-  color: var(--color-primary);
-}
-.footer-bottom {
-  border-top: 1px solid #34495e;
-  padding: 1.5rem 0;
-}
-.footer-bottom-content {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-}
-
-/* 
-  ---- RESPONSIVE (adaptation mobile/tablette/desktop) ----
-  Les grilles et paddings changent selon la largeur de l'écran
-*/
-@media (min-width: 576px) {
-  .footer-bottom-content {
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .footer-links { grid-template-columns: 1fr 1fr; }
-}
-@media (min-width: 769px) {
-  /* Cache burger menu et overlay sur desktop */
-  .hamburger, .nav-overlay { display: none; }
-  .nav-links {
-    position: static;
-    flex-direction: row;
-    height: auto;
-    width: auto;
-    background: none;
-    padding: 0;
-    transform: none;
-    transition: none;
-    gap: 1rem;
-    border: none;
-    box-shadow: none;
-  }
-  .nav-link {
-    width: auto;
-    font-size: 1rem;
-    padding: 0.5rem 1rem;
-  }
-  .footer-grid { grid-template-columns: 1.5fr 2fr; }
-  .footer-links { grid-template-columns: repeat(3, 1fr); }
-  .references-grid { grid-template-columns: repeat(2, 1fr); }
-  .services-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .hero-overlay { padding: 150px 0 80px; }
-  .hero-buttons { flex-direction: row; }
-  .hero-buttons .btn { width: auto; }
-  .footer-bottom-content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-  }
-  .nav__wrapper { order: 1; }
-  .search-form { margin-left: 2rem; }
-  .search-bar { width: 250px; }
-  .footer-grid { gap: calc(var(--footer-gap) * 2); }
-}
-@media (min-width: 992px) {
-  .services-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-/* 
-  ---- EFFETS DE SURVOL (hover) ----
-  Appliqués uniquement si l'appareil supporte le hover (évite les bugs sur mobile)
-*/
-@media (hover: hover) {
-  .service-card:hover, .reference-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--box-shadow-hover);
-  }
-  .btn-primary:hover {
-    background-color: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
-    transform: scale(var(--btn-hover-scale));
-  }
-  .btn-primary:hover i { transform: translateX(4px); }
-  .btn-secondary:hover {
-    background-color: #fff;
-    color: var(--color-text);
-  }
-  .whatsapp-float:hover { transform: scale(1.1); }
-  .nav-link:hover { background-color: var(--color-bg-alt); color: var(--color-primary); }
-  .nav-link.active { background-color: transparent; }
-  body.dark-theme .nav-link:hover { background-color: var(--color-bg-alt); }
-  .faq-question:hover { background-color: var(--color-bg-alt); }
-  .search-bar:hover { background-color: var(--color-hover-overlay); }
-}
-
-/* 
-  ---- EFFETS DE FOCUS (clavier/accessibilité) ----
-  Outline orange épais (variable), arrondi comme les boutons.
+  Focus visible pour l'accessibilité :
+  - Contour orange épais sur les éléments au focus clavier
+  - Arrondi comme les boutons
 */
 :focus-visible {
   outline: var(--focus-outline-width) solid var(--color-primary);
   outline-offset: 2px;
   border-radius: var(--border-radius-base);
 }
-:focus:not(:focus-visible) { outline: none; }
+:focus:not(:focus-visible) {
+  outline: none;
+}
 
-/* 
-  ---- RÉDUCTION DES ANIMATIONS (accessibilité) ----
-  Si l'utilisateur préfère peu d'animations, tout est instantané.
+/*
+  Réduction des animations si l'utilisateur l'a demandé dans Windows/Mac
+  (Préférence accessibilité)
 */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -504,28 +196,216 @@ body.dark-theme .header {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .fade-in, .slide-up, .service-card, .hero-content, .nav-link { animation: none !important; transition: none !important; }
-}
-
-/* 
-  ---- STYLES D'IMPRESSION ----
-  Cache les éléments non nécessaires à l'impression.
-*/
-@media print {
-  .header, .footer, .hamburger, .nav-overlay, .whatsapp-float, .btn, .cta-section { display: none !important; }
-  body { color: #000; background: #fff; }
-  .section { padding: 20px 0; }
-  .hero-overlay { margin-top: 0; padding: 20px 0; background: none; }
-  a { text-decoration: none; color: #000; }
 }
 
 /* ==========================================================================
-   4. COMPOSANTS (BOUTONS, CARTES, ETC.)
+   3. STRUCTURE PRINCIPALE (Header, Nav, Footer)
    ========================================================================== */
 
+/*
+  .container : largeur max + centrage horizontal
+  Utilise cette classe pour tous les blocs principaux
+*/
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/*
+  .section : espacement vertical standard entre les blocs principaux
+*/
+.section {
+  padding: var(--spacing-section) 0;
+}
+
+/*
+  Titres de section principaux : gros, en gras, centrés
+*/
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--color-dark);
+}
+.section-subtitle {
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 4rem;
+  color: var(--color-text-muted);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* === HEADER FIXE ===
+  - Fond blanc semi-transparent (ou sombre en dark)
+  - Flou de fond (backdrop-filter)
+  - Bordure basse
+  - Z-index élevé pour passer devant le reste
+*/
+.header {
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--color-border);
+  /* Si tu vois une fine barre orange au-dessus du logo,
+     c'est peut-être cette border-bottom qui prend une couleur orangée !
+     --color-border doit rester gris clair, jamais orange.
+     Si tu veux la supprimer totalement :
+     border-bottom: none;
+  */
+}
+body.dark-theme .header {
+  background: rgba(26,32,44,0.92);
+}
+
 /* 
-  Bouton générique, avec transitions et effets de focus.
-  Modifier les variantes ci-dessous pour changer l'apparence.
+  Barre de navigation principale : flex pour aligner logo à gauche & liens à droite
+*/
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--header-height);
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--color-dark);
+  background: none; /* Vérifie bien qu'aucun background ou border ne traine ici */
+  border: none;
+}
+.logo img {
+  width: 40px; height: 40px; margin-right: 12px;
+}
+.logo .bms { color: var(--color-primary); }
+
+/*
+  Liens du menu principal (desktop) :
+  - Horizontaux, espacés, sans puce
+  - Arrondi, padding, transition fluide
+  - Orange en fond + texte blanc au survol ou actif
+*/
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  align-items: center;
+}
+.nav-link {
+  color: var(--color-dark);
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--border-radius-base);
+  transition: var(--transition-base);
+  position: relative;
+}
+.nav-link:hover, .nav-link.active {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+}
+
+/* === BOUTON "Contact" dans la nav ===
+   Si ton bouton "Contact" sort de l'écran sur desktop, 
+   vérifie ici le padding et le width (pas de width fixe).
+   Si tu veux un bouton plus visible, tu peux ajouter une classe .btn à ce lien.
+   Pour le responsive, voir plus bas.
+*/
+.nav-link.btn {
+  font-weight: 700;
+  background: var(--color-primary);
+  color: var(--color-light);
+  padding: 0.6rem 1.4rem;
+  border: none;
+  transition: var(--transition-base);
+}
+.nav-link.btn:hover {
+  background: var(--color-primary-dark);
+  color: var(--color-light);
+  transform: scale(1.04);
+}
+
+/* === MENU BURGER ===
+   Masqué sur desktop, visible sur mobile
+   Les 3 barres sont des <span> animés
+*/
+.hamburger {
+  display: none; /* Affiché en mobile/tablette */
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  padding: 5px;
+  background: none;
+  border: none;
+}
+.hamburger span {
+  width: 25px; height: 3px;
+  background-color: var(--color-dark);
+  transition: 0.3s;
+  border-radius: 2px;
+}
+
+/*
+  FOOTER sombre, grille à 2 ou 3 colonnes, textes clairs, liens bien visibles.
+*/
+.footer {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  padding-top: 4rem;
+}
+.footer-main { padding-bottom: 4rem; }
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr;
+  gap: 4rem;
+}
+.footer-brand .footer-logo { margin-bottom: 1rem; }
+.footer-brand .footer-description { color: #a0aec0; }
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.footer-column h4 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+.footer-column ul { list-style: none; }
+.footer-column li { margin-bottom: 0.5rem; }
+.footer-column a { color: #a0aec0; }
+.footer-column a:hover { color: var(--color-light); }
+.footer-column i { margin-right: 0.5rem; color: var(--color-primary); }
+
+.footer-bottom {
+  border-top: 1px solid var(--color-dark-lighten);
+  padding: 1.5rem 0;
+}
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #a0aec0;
+}
+
+/* ==========================================================================
+   4. COMPOSANTS PRINCIPAUX (Boutons, Cartes, etc.)
+   ========================================================================== */
+
+/*
+  Boutons génériques. 
+  Utilise .btn-primary pour un bouton orange, .btn-secondary pour un bouton blanc.
+  Ajoute la classe .btn à tout <a> ou <button> pour appliquer le style.
 */
 .btn {
   display: inline-block;
@@ -533,155 +413,97 @@ body.dark-theme .header {
   border-radius: var(--border-radius-base);
   text-decoration: none;
   font-weight: 700;
-  transition: all var(--transition-duration) var(--transition-curve);
+  transition: var(--transition-base);
   border: 2px solid transparent;
   cursor: pointer;
-  font-size: var(--font-size-base);
-  will-change: transform, background-color, border-color, color;
+  font-size: 1rem;
 }
-.btn i { transition: transform 0.3s var(--transition-curve); display: inline-block; }
-
-/* Bouton principal : orange plein */
 .btn-primary {
   background-color: var(--color-primary);
-  color: #fff;
+  color: var(--color-light);
   border-color: var(--color-primary);
-  box-shadow: var(--box-shadow-base);
 }
-.btn-primary:hover { box-shadow: var(--box-shadow-hover); }
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-light);
+  border-color: var(--color-light);
+}
+.btn-secondary:hover {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
 
-/* Bouton secondaire : bordure blanche, fond transparent */
-.btn-secondary { background-color: transparent; color: #fff; border-color: #fff; }
-
-/* Bouton désactivé (gris) */
-.btn:disabled, .btn.disabled { background-color: #ccc; border-color: #ccc; color: #666; cursor: not-allowed; transform: none; }
-
-/* Effet d'enfoncement au clic */
-.btn:active { transform: scale(0.98); }
-
-/* 
-  Cartes de services : 
-  Fond blanc, ombre portée, arrondi, effet d'élévation au hover.
+/*
+  Cartes de service ou de contact :
+  - Fond blanc, arrondi, ombre portée, padding généreux
+  - Effet d'élévation au survol
 */
-.service-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+.service-card, .contact-card {
+  background: var(--color-light);
   border-radius: var(--border-radius-large);
   text-align: center;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   box-shadow: var(--box-shadow-base);
-  transition: all var(--transition-duration) var(--transition-curve);
-  will-change: transform, box-shadow;
+  transition: var(--transition-base);
 }
-.service-icon { font-size: 2.5rem; color: var(--color-primary); margin-bottom: 1.5rem; }
-.service-card h3 {
-  font-size: var(--font-size-h3);
-  margin-bottom: 1rem;
-  font-weight: 700;
-  color: var(--color-heading);
-  line-height: var(--line-height-heading);
-}
-.service-card p { color: var(--color-text-muted); }
-
-/* 
-  Cartes de contact (nouveau design): 
-  Similaires aux service-card mais max-width différent, icône plus grande.
-*/
-.contact-direct-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 30px;
-  margin-top: 4rem;
-  justify-items: center;
-}
-.contact-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-large);
-  box-shadow: var(--box-shadow-base);
-  padding: 2rem;
-  text-align: center;
-  max-width: 380px;
-  transition: all var(--transition-duration) var(--transition-curve);
-  will-change: transform, box-shadow;
-}
-.contact-card:hover {
+.service-card:hover, .contact-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--box-shadow-hover);
 }
-.contact-icon {
-  font-size: 3rem;
+.service-icon, .contact-icon {
+  font-size: 2.5rem;
   color: var(--color-primary);
   margin-bottom: 1.5rem;
-  display: block;
 }
-.contact-card h3 {
-  font-size: var(--font-size-h3);
-  color: var(--color-heading);
-  margin-bottom: 0.8rem;
+.service-card h3, .contact-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
   font-weight: 700;
-  line-height: var(--line-height-heading);
 }
-.contact-card p {
-  color: var(--color-text-muted);
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
+.service-card p, .contact-card p { color: var(--color-text-muted); }
+
+.badge {
+  background: rgba(255, 140, 66, 0.1);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 140, 66, 0.2);
 }
+.badge-netflix { background: rgba(229, 9, 20, 0.1); color: #e50914; border-color: rgba(229, 9, 20, 0.2); }
+.badge-jo { background: rgba(255, 215, 0, 0.1); color: #b7950b; border-color: rgba(255, 215, 0, 0.2); }
 
 /* ==========================================================================
-   5. SECTIONS SPÉCIFIQUES & PAGES
+   5. SECTIONS SPÉCIFIQUES (Hero, FAQ, Réalisations, etc.)
    ========================================================================== */
 
-/* 
-  ---- HERO (bannière principale en haut de page) ----
-  Fond image + overlay sombre, texte centré et blanc.
+/* === HERO (bannière principale) ===
+   - Texte blanc centré
+   - Padding important pour l'effet "hero"
 */
 .hero {
-  position: relative;
-  color: #fff;
+  color: var(--color-light);
   text-align: center;
-  min-height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #2c3e50;
-  overflow: hidden;
-}
-.hero .hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 120px 0 60px;
-  margin-top: var(--header-height);
-  will-change: transform, opacity;
-}
-.hero .hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Fallback IE */
-  z-index: 0;
-  loading: eager;
+  background: var(--color-dark);
 }
 .hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, var(--overlay-opacity)) 0%, rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.6)) 100%);
-  z-index: 1;
+  padding: 150px 0 80px;
+  margin-top: var(--header-height);
 }
 .hero h1 {
+  font-size: 3rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  line-height: var(--line-height-heading);
-  font-size: var(--font-size-h1);
+  line-height: 1.2;
 }
 .hero p {
-  font-size: clamp(1rem, 3vw, 1.2rem);
+  font-size: 1.2rem;
   margin-bottom: 2.5rem;
   opacity: 0.9;
   max-width: 700px;
@@ -690,21 +512,57 @@ body.dark-theme .header {
 }
 .hero-buttons {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   justify-content: center;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
 }
-.hero-buttons .btn { width: 100%; max-width: 300px; }
 
-.cta-section { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: #fff; text-align: center; }
+/*
+  Grille responsive pour afficher les services (ou réalisations)
+*/
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
 
-/* FAQ (Foire aux Questions) : accordéon */
+/*
+  Témoignages clients (carte blanche, texte en italique, auteur en gras)
+*/
+.testimonial-card {
+  background: var(--color-light);
+  padding: 2.5rem;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+}
+.testimonial-card p {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.testimonial-card footer {
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.testimonial-card footer span { color: var(--color-primary); }
+
+/*
+  Section Call-To-Action (CTA) : fond dégradé sombre, texte blanc
+*/
+.cta-section {
+  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-lighten) 100%);
+  color: var(--color-light);
+  text-align: center;
+}
+
+/*
+  FAQ (accordéon) : question cliquable, réponse cachée/affichée
+*/
 .faq-item {
-  background: var(--color-surface);
+  background: var(--color-light);
   margin-bottom: 1rem;
   border-radius: var(--border-radius-base);
-  border: 1px solid var(--color-border);
+  box-shadow: var(--box-shadow-base);
   overflow: hidden;
 }
 .faq-question {
@@ -715,204 +573,135 @@ body.dark-theme .header {
   text-align: left;
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--color-heading);
+  color: var(--color-dark);
   cursor: pointer;
+  transition: background-color 0.3s;
 }
+.faq-question:hover { background-color: var(--color-light-alt); }
 .faq-answer {
   padding: 0 1.5rem;
   color: var(--color-text-muted);
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.5s var(--transition-curve), padding 0.5s var(--transition-curve);
+  transition: max-height 0.4s, padding 0.4s;
 }
-.faq-item.is-open .faq-answer { padding-bottom: 1.5rem; }
+.faq-item.is-open .faq-answer {
+  padding-bottom: 1.5rem;
+}
 
-.stats-section { background-color: var(--color-bg-alt); }
-.stats-grid {
+/* === MISE EN PAGE POUR LES ÉTUDES DE CAS (réalisations) === */
+.case-study {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 30px;
-  text-align: center;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: var(--spacing-section);
 }
-.stat-item .stat-number {
-  font-size: clamp(2.5rem, 7vw, 3.5rem);
-  font-weight: 800;
-  color: var(--color-primary);
+.case-study.reverse {
+  grid-template-columns: 1fr 1fr; /* Image à droite */
 }
-.stat-item .stat-label { font-size: 1.1rem; color: var(--color-text); margin-top: 5px; }
-
-.references-grid { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 50px; }
-.reference-card {
-  background-color: var(--color-surface);
-  border: 1px solid var(--color-border);
+.case-study.reverse .case-study-image { grid-column: 2; grid-row: 1; }
+.case-study.reverse .case-study-content { grid-column: 1; grid-row: 1; }
+.case-study-image img {
+  width: 100%;
+  height: auto;
   border-radius: var(--border-radius-large);
   box-shadow: var(--box-shadow-base);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: all var(--transition-duration) var(--transition-curve);
-  will-change: transform, box-shadow;
 }
-.reference-card-image {
-  height: 220px;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--color-bg-alt);
+.client-logo {
+  height: 35px;
+  margin-bottom: 1.5rem;
 }
-.reference-card-content {
-  padding: 25px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+.case-study-content h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
 }
-.reference-card-content h3 {
-  margin-top: 0;
-  font-size: var(--font-size-h3);
-  color: var(--color-heading);
-  line-height: var(--line-height-heading);
+.case-challenge {
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
 }
-.reference-card-content .client-logo {
-  max-height: 40px;
-  margin-bottom: 15px;
-  align-self: flex-start;
-}
-.reference-card-content .challenge-list {
+.case-solution {
   list-style: none;
-  padding-left: 0;
-  margin-top: 15px;
-  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
 }
-.reference-card-content .challenge-list li { display: flex; align-items: flex-start; margin-bottom: 10px; }
-.reference-card-content .challenge-list i {
+.case-solution li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+.case-solution i {
   color: var(--color-primary);
-  margin-right: 10px;
+  margin-right: 0.8rem;
   margin-top: 4px;
-  flex-shrink: 0;
 }
 .testimonial-inline {
-  margin-top: auto;
-  padding-top: 15px;
-  border-top: 1px solid var(--color-border);
-  font-style: italic;
-  color: var(--color-text-muted);
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1.5rem;
+  margin-top: 2rem;
 }
-.testimonial-inline footer {
-  font-style: normal;
-  font-weight: 700;
-  margin-top: 10px;
-  color: var(--color-heading);
-}
+.testimonial-inline p { font-style: italic; }
+.testimonial-inline footer { font-weight: 700; margin-top: 0.5rem; }
 
-/* 
-  Bouton WhatsApp flottant (coin bas droit)
-  Style circulaire, vert WhatsApp.
-*/
-.whatsapp-float {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #25D366;
-  color: white;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size:
+.references-logos img {
+  height: 45px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.references-logos img:hover { opacity: 1; }
+
+.legal-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.legal-section:last-child { border-bottom: none; }
+.legal-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
 }
 
 /* ==========================================================================
-   6. MODIFICATIONS SPÉCIFIQUES NAVIGATION & RECHERCHE
+   6. RESPONSIVE DESIGN
    ========================================================================== */
 
-/* 
-  Barre de recherche : 
-  Fond blanc forcé, bord arrondi, ne change pas en dark mode.
-*/
-.search-bar {
-  background-color: #ffffff; /* Toujours blanc */
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-base);
-  padding: 0.5rem 1rem;
-  font-size: var(--font-size-base);
-  color: var(--color-text);
-  width: 200px;
-  transition: background-color var(--transition-duration) var(--transition-curve);
-}
-.search-bar:hover {
-  background-color: #f8f9fa; /* Blanc légèrement grisé au hover */
-}
-.search-bar:focus-visible {
-  outline: var(--focus-outline-width) solid var(--color-primary);
-  outline-offset: 2px;
-  background-color: #ffffff; /* Reste blanc au focus */
-}
-
-/* 
-  Lien de navigation : 
-  Ajoute un overlay orange opaque sur hover/active pour bien différencier.
-  Utilise rgba(255, 140, 66, ...) pour la transparence.
-*/
-.nav-link {
-  width: auto;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  position: relative; /* Nécessaire pour overlay éventuel */
-  border-radius: var(--border-radius-base);
-  transition: all 0.3s ease;
-}
-
-/* Overlay orange opaque au hover/focus pour les liens du menu */
-@media (hover: hover) {
-  .nav-link:hover {
-    background-color: rgba(255, 140, 66, 0.15); /* Overlay orange pâle */
-    color: var(--color-primary);
-  }
-  .nav-link.active {
-    background-color: rgba(255, 140, 66, 0.2); /* Overlay un peu plus fort pour actif */
-    color: var(--color-primary);
-    font-weight: 700;
-  }
-  .nav-link.active:hover {
-    background-color: rgba(255, 140, 66, 0.25); /* Encore plus opaque si actif + hover */
-  }
-}
-
-/* 
-  Version dark : 
-  La barre de recherche reste blanche, texte foncé même en mode sombre.
-*/
-body.dark-theme .search-bar {
-  background-color: #ffffff;
-  color: #2c3e50;
-}
-body.dark-theme .search-bar:hover {
-  background-color: #f8f9fa;
-}
-
-/* 
-  ALTERNATIVE : overlay avec ::before (décommenter si besoin)
-  Cela permettrait d'ajouter l'overlay orange via un pseudo-élément,
-  sans changer le background-color du lien.
-*/
 /*
-.nav-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(255, 140, 66, 0);
-  border-radius: inherit;
-  transition: background-color 0.3s ease;
-  z-index: -1;
-}
-.nav-link:hover::before {
-  background-color: rgba(255, 140, 66, 0.15);
-}
-.nav-link.active::before {
-  background-color: rgba(255, 140, 66, 0.2);
-}
+  - Les grilles passent en colonne simple sur tablette/mobile
+  - Réduit la taille des titres
+  - Affiche le menu burger, masque les liens de nav
+  - Ajuste le hero, les paddings, les grilles, etc.
 */
+@media (max-width: 768px) {
+  .section-title { font-size: 2rem; }
+  .header .nav-links { display: none; } /* Pour JS : menu mobile */
+  .header .hamburger { display: flex; }
+
+  .hero h1 { font-size: 2.2rem; }
+  .hero p { font-size: 1.1rem; }
+
+  .footer-content, .footer-links { grid-template-columns: 1fr; }
+  
+  .case-study, .case-study.reverse {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .case-study.reverse .case-study-image,
+  .case-study.reverse .case-study-content {
+    grid-column: 1;
+  }
+
+  /* Pour éviter que le bouton contact disparaisse sur mobile :
+     Vérifie ici que .nav-link.btn, .btn ou .contact n'ont pas de width fixe ou de margin trop grande
+     Si besoin, tu peux forcer : width: 100%; margin: 0 auto;
+  */
+  .nav-link.btn {
+    width: 100%;
+    margin: 0.3rem 0;
+    text-align: center;
+    display: block;
+    padding: 0.8rem 0;
+  }
+}
