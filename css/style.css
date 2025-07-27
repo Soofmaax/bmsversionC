@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1)
+   FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1) CORRIGÉE
    ========================================================================== */
 
 /* 1. VARIABLES GLOBALES & FONDATIONS */
@@ -146,6 +146,11 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   height: var(--header-height);
   gap: 1rem;
 }
+.logo, .logo .bms {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -153,8 +158,6 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   font-weight: 800;
   text-decoration: none;
   color: var(--color-dark);
-  background: none;
-  border: none;
 }
 .logo img { width: 40px; height: 40px; margin-right: 12px; }
 .logo .bms { color: var(--color-primary); }
@@ -312,29 +315,37 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 
 /* 5. SECTIONS SPÉCIFIQUES (Hero, FAQ, Réalisations, etc.) */
 
-/* === HERO (texte sur image) === */
+/* === HERO (texte sur image, image 100% visible, pas rognée) === */
 .hero {
   position: relative;
-  overflow: hidden;
-  min-height: 60vh;
+  min-height: 480px;
   display: flex;
   align-items: stretch;
   justify-content: center;
   color: var(--color-light);
-  background: var(--color-dark);
+  background: #000; /* fallback si image ne charge pas */
+  /* plus de background orange ou gris ! */
+  overflow: hidden;
 }
 .hero-bg {
   position: absolute;
   inset: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   z-index: 1;
+  pointer-events: none;
+  /* Pour s'assurer que l'image n'est pas rognée */
+  display: flex;
+  align-items: stretch;
 }
 .hero-bg img {
-  width: 100%;
+  width: 100vw;
   height: 100%;
-  object-fit: cover;
+  max-height: 650px;
+  object-fit: contain; /* Affiche toute l'image, sans rognage */
+  object-position: center;
   display: block;
+  background: #000; /* évite bande blanche si image transparente */
 }
 .hero-overlay {
   position: absolute;
@@ -344,10 +355,12 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%);
+  background: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.55) 100%);
   color: #fff;
   text-align: center;
-  padding: 3vw 10vw;
+  padding-top: calc(var(--header-height) + 40px);
+  padding-bottom: 60px;
+  width: 100vw;
 }
 .hero-overlay .container {
   z-index: 3;
@@ -366,7 +379,7 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 .hero p {
   font-size: 1.2rem;
   margin-bottom: 2.5rem;
-  opacity: 0.9;
+  opacity: 0.95;
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
@@ -519,7 +532,7 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   margin-bottom: 1rem;
 }
 
-/* 5bis. BOUTON WHATSAPP FLOTTANT, TOUJOURS VISIBILE MAIS NE CACHE PAS LE FOOTER */
+/* 5bis. BOUTON WHATSAPP FLOTTANT */
 .whatsapp-float {
   position: fixed;
   bottom: var(--whatsapp-margin);
@@ -581,9 +594,10 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   }
   .hero-bg img {
     min-height: 300px;
-    object-position: center top;
+    object-position: center;
   }
   .hero-overlay {
-    padding: 80px 5vw 50px;
+    padding-top: calc(var(--header-height) + 20px);
+    padding-bottom: 40px;
   }
 }
