@@ -1,5 +1,5 @@
-/* ==========================================================================
-   BMS VENTOUSE - STYLE PRINCIPAL (Optimisé & Nettoyé)
+mon css me semble trop long sans rien retire dimportant on ne peut pas le rentre plus stable et maintenanble /* ==========================================================================
+   FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1) CORRIGÉE ET MODERNE
    ========================================================================== */
 
 /* 1. VARIABLES GLOBALES & FONDATIONS */
@@ -20,11 +20,13 @@
   --font-size-h3: clamp(1.3rem, 3vw, 1.4rem);
   --line-height-base: 1.7;
   --line-height-heading: 1.3;
+
   --container-width: 1200px;
   --spacing-section: 80px;
   --header-height: 70px;
   --promo-banner-height: 50px;
   --footer-gap: 2rem;
+
   --border-radius-base: 8px;
   --border-radius-large: 12px;
   --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -36,8 +38,7 @@
   --whatsapp-mobile-size: 48px;
   --whatsapp-margin: 24px;
 }
-/* Dark mode */
-body.dark-theme,
+body.dark-theme, 
 :root:has(body.dark-theme),
 @media (prefers-color-scheme: dark) {
   --color-light: #1a202c;
@@ -65,7 +66,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   transition: background-color 0.4s, color 0.4s;
-  padding-top: calc(var(--header-height) + var(--promo-banner-height));
 }
 a {
   color: var(--color-primary);
@@ -108,7 +108,7 @@ img { max-width: 100%; height: auto; }
   }
 }
 
-/* 3. STRUCTURE PRINCIPALE */
+/* 3. STRUCTURE PRINCIPALE (Header, Nav, Footer) */
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
@@ -147,6 +147,11 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   height: var(--header-height);
   gap: 1rem;
 }
+.logo, .logo .bms {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -154,9 +159,6 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   font-weight: 800;
   text-decoration: none;
   color: var(--color-dark);
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
 }
 .logo img { width: 40px; height: 40px; margin-right: 12px; }
 .logo .bms { color: var(--color-primary); }
@@ -246,7 +248,7 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   color: #a0aec0;
 }
 
-/* 4. COMPOSANTS (Boutons, Badges, Cartes) */
+/* 4. COMPOSANTS PRINCIPAUX (Boutons, Cartes, etc.) */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -272,15 +274,6 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   background-color: var(--color-primary-dark);
   color: #fff;
 }
-.btn-secondary {
-  background-color: transparent;
-  color: var(--color-light);
-  border-color: var(--color-light);
-}
-.btn-secondary:hover {
-  background-color: var(--color-light);
-  color: var(--color-dark);
-}
 .btn-whatsapp {
   background-color: #25d366;
   color: #fff;
@@ -290,12 +283,23 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   background-color: #1ebd5a;
   color: #fff;
 }
+
 .btn-primary i, .btn-whatsapp i {
   font-size: 1.25em;
   margin-right: 0.5em;
   vertical-align: middle;
 }
 
+/* Pour les autres boutons génériques */
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-light);
+  border-color: var(--color-light);
+}
+.btn-secondary:hover {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
 .service-card, .contact-card {
   background: var(--color-light);
   border-radius: var(--border-radius-large);
@@ -331,9 +335,9 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 .badge-netflix { background: rgba(229, 9, 20, 0.1); color: #e50914; border-color: rgba(229, 9, 20, 0.2); }
 .badge-jo { background: rgba(255, 215, 0, 0.1); color: #b7950b; border-color: rgba(255, 215, 0, 0.2); }
 
-/* 5. SECTIONS SPÉCIFIQUES */
-/* HERO, SERVICES, FAQ, RÉFÉRENCES, ETC. (Résumé, pas tout le détail ici pour la clarté) */
+/* 5. SECTIONS SPÉCIFIQUES (Hero, FAQ, Réalisations, etc.) */
 
+/* === HERO (texte sur image, image 100% visible, pas rognée) === */
 .hero {
   position: relative;
   min-height: 420px;
@@ -341,7 +345,7 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   align-items: stretch;
   justify-content: center;
   color: var(--color-light);
-  background: #000;
+  background: #000; /* fallback si image ne charge pas */
   overflow: hidden;
 }
 .hero-bg {
@@ -358,10 +362,10 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   width: 100vw;
   height: 100%;
   max-height: 650px;
-  object-fit: contain;
+  object-fit: contain; /* Affiche toute l'image, sans rognage */
   object-position: center;
   display: block;
-  background: #000;
+  background: #000; /* évite bande blanche si image transparente */
 }
 .hero-overlay {
   position: absolute;
@@ -374,11 +378,22 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   background: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.55) 100%);
   color: #fff;
   text-align: center;
+  /*
+   * Le padding supérieur est calculé en fonction de la hauteur du header et
+   * de la promo-banner pour éviter que ces éléments se chevauchent avec
+   * le contenu du héros.
+   */
   padding: calc(var(--header-height) + var(--promo-banner-height) + 20px) 5vw 40px;
   width: 100vw;
 }
-.hero-overlay .container { z-index: 3; position: relative; }
-.hero h1, .hero p { color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.44); }
+.hero-overlay .container {
+  z-index: 3;
+  position: relative;
+}
+.hero h1, .hero p {
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.44);
+}
 .hero h1 {
   font-size: 2.1rem;
   font-weight: 800;
@@ -401,13 +416,323 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   align-items: center;
   width: 100%;
 }
+/* Desktop/tablette : boutons côte à côte */
 @media (min-width: 600px) {
-  .hero-buttons { flex-direction: row; gap: 1.5rem; width: auto; }
+  .hero-buttons {
+    flex-direction: row;
+    gap: 1.5rem;
+    width: auto;
+  }
   .hero h1 { font-size: 2.6rem; }
   .hero p { font-size: 1.2rem; max-width: 650px; }
 }
 
-/* FAQ ACCORDÉON (propre, compatible JS maxHeight dynamique) */
+/* Centrage du bouton CTA "Découvrir tous nos services" */
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Grille responsive pour services/réalisations */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Témoignages clients */
+.testimonial-card {
+  background: var(--color-light);
+  padding: 2.5rem;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+}
+.testimonial-card p {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+.testimonial-card footer {
+  font-weight: 700;
+  color: var(--color-dark);
+}
+.testimonial-card footer span { color: var(--color-primary); }
+
+/* CTA section */
+.cta-section {
+  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-lighten) 100%);
+  color: var(--color-light);
+  text-align: center;
+}
+
+/* FAQ accordéon (styles de base retirés car une version plus complète
+   est définie plus bas). La section ci-dessus a été commentée pour
+   éviter la duplication et les conflits de styles. */
+
+/* Études de cas (réalisations) */
+.case-study {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: var(--spacing-section);
+}
+.case-study.reverse {
+  grid-template-columns: 1fr 1fr;
+}
+.case-study.reverse .case-study-image { grid-column: 2; grid-row: 1; }
+.case-study.reverse .case-study-content { grid-column: 1; grid-row: 1; }
+.case-study-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+}
+.client-logo { height: 35px; margin-bottom: 1.5rem; }
+.case-study-content h3 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+.case-challenge {
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+.case-solution {
+  list-style: none;
+  margin-bottom: 1.5rem;
+}
+.case-solution li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+.case-solution i {
+  color: var(--color-primary);
+  margin-right: 0.8rem;
+  margin-top: 4px;
+}
+.testimonial-inline {
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1.5rem;
+  margin-top: 2rem;
+}
+.testimonial-inline p { font-style: italic; }
+.testimonial-inline footer { font-weight: 700; margin-top: 0.5rem; }
+.references-logos img {
+  height: 45px;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.references-logos img:hover { opacity: 1; }
+.legal-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--color-border);
+}
+.legal-section:last-child { border-bottom: none; }
+.legal-section h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+/* 5bis. BOUTON WHATSAPP FLOTTANT */
+.whatsapp-float {
+  position: fixed;
+  bottom: var(--whatsapp-margin);
+  right: var(--whatsapp-margin);
+  width: var(--whatsapp-size);
+  height: var(--whatsapp-size);
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  font-size: 2.3rem;
+  transition: transform 0.2s, box-shadow 0.2s, bottom 0.2s;
+  cursor: pointer;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.23);
+  background: #20ba5a;
+}
+.whatsapp-float i {
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: var(--whatsapp-mobile-size);
+    height: var(--whatsapp-mobile-size);
+    font-size: 1.8rem;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
+/* 6. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .section-title { font-size: 2rem; }
+  .header .nav-links { display: none; }
+  .header .hamburger { display: flex; }
+  .hero h1 { font-size: 2.2rem; }
+  .hero p { font-size: 1.1rem; }
+  .footer-content, .footer-links { grid-template-columns: 1fr; }
+  .case-study, .case-study.reverse {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .case-study.reverse .case-study-image,
+  .case-study.reverse .case-study-content {
+    grid-column: 1;
+  }
+  .nav-link.btn {
+    width: 100%;
+    margin: 0.3rem 0;
+    text-align: center;
+    display: block;
+    padding: 0.8rem 0;
+  }
+  .hero-bg img {
+    min-height: 300px;
+    object-position: center;
+  }
+  .hero-overlay {
+    /*
+     * Ajout de la hauteur de la promo-banner dans le calcul du padding supérieur
+     * afin que le contenu de la bannière et du header ne se chevauchent pas.
+     */
+    padding-top: calc(var(--header-height) + var(--promo-banner-height) + 20px);
+    padding-bottom: 40px;
+  }
+}
+
+/* -------------------------------------------------------------------
+ * AJOUTS: Refonte V1 (Promo Banner, Menu Mobile, FAQ, Stats, Urgency, Mentions)
+ * Ces styles complètent la charte graphique existante et améliorent
+ * l'expérience utilisateur sur mobile et desktop.
+ * Auteur: refonte-v1
+ ------------------------------------------------------------------- */
+
+/* Promo banner pour l'offre de bienvenue */
+.promo-banner {
+  /*
+   * Bannière promotionnelle : couleur de fond très contrastée
+   * (noir intense) et texte clair pour une visibilité maximale.
+   */
+  /*
+   * Bannière promotionnelle : couleur de fond harmonisée avec la charte
+   * (orange principal) et texte clair pour une visibilité optimale.
+   */
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  /*
+   * Hauteur fixe pour la bannière afin de faciliter le calcul des espacements
+   * et éviter que la bannière ne chevauche d'autres contenus. La bannière est
+   * centrée verticalement grâce à flexbox.
+   */
+  height: var(--promo-banner-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  /* S'assure que la bannière s'affiche au‑dessus des autres sections (notamment du héros)
+     en position relative avec un z-index élevé. */
+  position: relative;
+  z-index: 1001;
+}
+
+/*
+ * Mise en forme de la table des matières (TOC) pour les mentions légales.
+ * Nous transformons la navigation en carte afin de l’harmoniser avec
+ * les autres sections (services, FAQ, zones d’intervention…).
+ */
+.toc,
+.toc-card {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+.toc ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.toc li + li {
+  margin-top: 0.75rem;
+}
+.toc a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.toc a:hover,
+.toc a:focus {
+  color: var(--color-primary-dark);
+  text-decoration: underline;
+}
+
+/* Styles pour le menu mobile: overlay et menu déroulant */
+.nav-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.nav-overlay.active {
+  display: block;
+  opacity: 1;
+}
+/* nav-links mobile active state */
+.nav-links.active {
+  display: flex !important;
+  flex-direction: column;
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  left: 0;
+  background-color: var(--color-light);
+  z-index: 999;
+  padding: 1.5rem 0;
+  box-shadow: var(--box-shadow-base);
+}
+.nav-links.active .nav-link {
+  margin: 0.5rem 1rem;
+  padding: 0.8rem 1rem;
+}
+/* Hamburger transformation en croix */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -5px);
+}
+
+/* FAQ sous forme de cartes avec icône flèche */
 .faq-container {
   display: grid;
   gap: 1.5rem;
@@ -418,6 +743,564 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   box-shadow: var(--box-shadow-base);
   overflow: hidden;
 }
+.faq-question {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  padding: 1rem 1.5rem;
+  width: 100%;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  position: relative;
+}
+.faq-question::after {
+  /*
+    Utilisation d'un chevron Font Awesome pour la FAQ. La valeur unicode
+    \f107 correspond à une flèche vers le bas. Une seule barre oblique est
+    nécessaire dans la feuille de style finale ; l'échappement double était
+    dû au format d'écriture du patch.
+  */
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s;
+}
+.faq-item.is-open .faq-question::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--color-light-alt);
+  padding: 0 1.5rem;
+  transition: max-height 0.3s ease, padding 0.3s;
+  color: var(--color-text-muted);
+}
+.faq-item.is-open .faq-answer {
+  padding: 1rem 1.5rem;
+}
+
+/* Statistiques sous forme de cartes */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+}
+.stat-item {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 2rem;
+  text-align: center;
+}
+.stat-item .stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+.stat-item .stat-label {
+  color: var(--color-text-muted);
+}
+
+/* Bannière d'urgence transformée en carte */
+.urgency-banner {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 2rem;
+}
+.urgency-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.urgency-content h3 {
+  margin-bottom: 0.5rem;
+}
+.urgency-buttons .btn {
+  background-color: var(--color-light);
+  color: var(--color-primary);
+}
+
+/* Contact cards améliorées */
+.contact-card {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 1.5rem;
+  text-align: center;
+}
+.contact-card .contact-icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+}
+
+/* -------------------------------------------------------------------------
+   CARROUSEL DES RÉFÉRENCES
+   -------------------------------------------------------------------------
+   Ce carrousel permet de faire défiler horizontalement les logos des clients.
+   Il repose uniquement sur CSS pour l'affichage et sur un petit script pour
+   gérer les actions des boutons. Les éléments sont alignés horizontalement
+   et masqués via overflow.
+*/
+.references-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.references-carousel .carousel-track {
+  display: flex;
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+.references-carousel .carousel-slide {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+}
+.references-carousel img {
+  display: block;
+  max-height: 60px;
+  width: auto;
+}
+.carousel-control {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--color-primary);
+  padding: 0.5rem;
+  transition: color 0.3s;
+}
+.carousel-control:hover,
+.carousel-control:focus {
+  color: var(--color-primary-dark);
+  outline: none;
+}
+
+/* Zone d'intervention cartes */
+.zones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+}
+.zone-card {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 2rem;
+  text-align: center;
+}
+.zone-card i {
+  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+/* Note d'intervention nationale sur la page contact */
+.coverage-note-card {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  color: var(--color-text);
+}
+
+/* Légal sections sous forme de cartes */
+.legal-section {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+.legal-section h2 {
+  margin-top: 0;
+  color: var(--color-primary);
+}
+
+/*
+ * Fichier CSS complémentaire pour BMS Ventouse
+ *
+ * Ce fichier contient des règles supplémentaires destinées à améliorer
+ * l'interface des pages d'accueil, services, références et mentions légales.
+ * Ces styles complètent la feuille de style originale et peuvent être
+ * fusionnés en fin de fichier `style.css` de votre projet.
+ */
+
+/* Harmonisation de la section d'appel à l'action (CTA) avec le pied de page */
+.cta-section {
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--spacing-section) 0;
+  text-align: center;
+}
+
+.cta-section .btn.btn-primary,
+.cta-section .btn.btn-secondary,
+.cta-section .btn.btn-urgent {
+  background-color: #fff;
+  color: var(--color-primary);
+  border-color: transparent;
+  padding: 0.8rem 1.6rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-base);
+  margin: 0.5rem;
+  transition: var(--transition-base);
+}
+
+.cta-section .btn.btn-primary:hover,
+.cta-section .btn.btn-secondary:hover,
+.cta-section .btn.btn-urgent:hover {
+  background-color: var(--color-light-alt);
+  color: var(--color-primary-dark);
+}
+
+/* Remplacer l'icône téléphone par l'icône WhatsApp sans toucher au HTML */
+.btn-urgent i.fa-phone-alt:before,
+.hero-buttons a.btn-secondary i.fa-phone-alt:before {
+  content: "\f232";
+  font-family: "Font Awesome 6 Brands";
+}
+
+/* Cartes de services améliorées */
+.services-grid-visual {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.service-card-visual {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-base);
+}
+
+.service-card-visual:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.service-card-visual-image img {
+  width: 100%;
+  /*
+   * Fixe une hauteur uniforme pour toutes les images des cartes de services.
+   * L'utilisation de object-fit: cover permet de recadrer l'image pour
+   * conserver ses proportions tout en remplissant le conteneur.
+   */
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.service-card-visual-content {
+  padding: 1.5rem;
+}
+
+.service-card-visual-content h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+}
+
+.service-card-visual-content p {
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.service-card-visual-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.service-card-visual-content ul li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.service-card-visual-content ul li::before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+/* Cartes de références améliorées */
+.references-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.reference-card {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.reference-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.reference-card-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.reference-card-content {
+  padding: 1.5rem;
+}
+
+.reference-card-content h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin-bottom: 0.5rem;
+}
+
+.reference-card-content p {
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.reference-card-content ul.challenge-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.reference-card-content ul.challenge-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.reference-card-content ul.challenge-list li::before {
+  content: "\f00c";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+/* Présentation des clauses légales sous forme de cartes (Mentions Légales) */
+.content-container > h2[id$='title'] {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large) var(--border-radius-large) 0 0;
+  box-shadow: var(--box-shadow-base);
+  padding: 1.5rem 2rem 0.5rem;
+  margin-top: 2rem;
+  color: var(--color-primary);
+}
+
+.content-container > h2[id$='title'] + p,
+.content-container > h2[id$='title'] + p + p {
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--border-radius-large) var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 0 2rem 1.5rem;
+  color: var(--color-text-muted);
+}
+
+/*
+ * Avantages inclus
+ * Section mettant en avant les prestations offertes (devis, repérage, signalisation, etc.).
+ * Affichée sur la page des services. Cette carte s'inspire du design
+ * utilisé pour les autres sections (bordure, ombre, coins arrondis).
+ */
+.included-benefits {
+  margin-top: 2rem;
+  background-color: var(--color-light);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  padding: 2rem;
+  text-align: left;
+}
+.included-benefits h2,
+.included-benefits h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+.benefits-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+.benefits-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.benefits-list li::before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+/* -------------------------------------------------------------------------
+ * Bouton Retour en haut (Back to Top)
+ *
+ * Ce lien est fixé en bas à droite de la fenêtre pour permettre un retour
+ * rapide en haut de page sans perturber le flux normal du contenu.
+ */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  border-radius: 50%;
+  text-decoration: none;
+  box-shadow: var(--box-shadow-base);
+  z-index: 1000;
+}
+.back-to-top i {
+  pointer-events: none;
+  font-size: 1.2rem;
+}
+/* --- Bannière promotionnelle fixée sous le header (toujours visible) --- */
+.promo-banner {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  width: 100vw;
+  height: var(--promo-banner-height);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.5px;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* Décalage du contenu pour header + promo */
+body {
+  padding-top: calc(var(--header-height) + var(--promo-banner-height));
+}
+
+/* Responsive : adapte la hauteur de la bannière promo sur mobile */
+@media (max-width: 600px) {
+  :root {
+    --promo-banner-height: 70px; /* Ajuste ici si besoin sur mobile */
+  }
+  .promo-banner {
+    font-size: 1rem;
+    padding: 0 0.7rem;
+  }
+}
+/* --------- Correction FAQ accordéon (dépliage complet) --------- */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--color-light-alt);
+  padding: 0 1.5rem;
+  transition: max-height 0.3s ease, padding 0.3s;
+  color: var(--color-text-muted);
+}
+
+.faq-item.is-open .faq-answer {
+  max-height: 600px;     /* Ajuste à la taille d'une réponse très longue */
+  padding: 1rem 1.5rem;
+  transition: max-height 0.3s ease, padding 0.3s;
+}
+
+/* Optionnel : amélioration responsive sur mobile */
+@media (max-width: 600px) {
+  .faq-answer,
+  .faq-item.is-open .faq-answer {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--color-light-alt);
+  padding: 0 1.5rem;
+  transition: max-height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s;
+  color: var(--color-text-muted);
+}
+
+.faq-item.is-open .faq-answer {
+  /* NE PAS mettre de max-height ici ! */
+  padding: 1rem 1.5rem;
+}
+@media (max-width: 600px) {
+  .faq-answer, .faq-item.is-open .faq-answer {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}
+/* ================== FAQ ACCORDÉON (compatible JS, stable et maintenable) ================== */
+
+/* Conteneur FAQ */
+.faq-container {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Carte FAQ */
+.faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  overflow: hidden;
+}
+
+/* Question */
 .faq-question {
   background-color: var(--color-light);
   color: var(--color-dark);
@@ -442,6 +1325,8 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 .faq-item.is-open .faq-question::after {
   transform: translateY(-50%) rotate(180deg);
 }
+
+/* Réponse animée par JS (ne pas toucher à max-height ici si JS gère) */
 .faq-answer {
   max-height: 0;
   overflow: hidden;
@@ -451,75 +1336,14 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   color: var(--color-text-muted);
 }
 .faq-item.is-open .faq-answer {
-  /* Surtout pas de max-height ici : le JS gère dynamiquement ! */
+  /* Le JS met dynamiquement max-height (ne rien mettre ici !) */
   padding: 1rem 1.5rem;
 }
+
+/* Responsive padding mobile */
 @media (max-width: 600px) {
   .faq-answer, .faq-item.is-open .faq-answer {
     padding-left: 0.7rem;
     padding-right: 0.7rem;
   }
 }
-
-/* --- Bannière promotionnelle fixée sous le header (toujours visible) --- */
-.promo-banner {
-  position: fixed;
-  top: var(--header-height);
-  left: 0;
-  width: 100vw;
-  height: var(--promo-banner-height);
-  z-index: 2000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-primary);
-  color: var(--color-light);
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: 0.5px;
-  padding: 0 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-}
-@media (max-width: 600px) {
-  :root { --promo-banner-height: 70px; }
-  .promo-banner { font-size: 1rem; padding: 0 0.7rem; }
-}
-
-/* WHATSAPP FLOTTANT */
-.whatsapp-float {
-  position: fixed;
-  bottom: var(--whatsapp-margin);
-  right: var(--whatsapp-margin);
-  width: var(--whatsapp-size);
-  height: var(--whatsapp-size);
-  background: #25d366;
-  color: white;
-  border-radius: 50%;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.20);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-  font-size: 2.3rem;
-  transition: transform 0.2s, box-shadow 0.2s, bottom 0.2s;
-  cursor: pointer;
-}
-.whatsapp-float:hover {
-  transform: scale(1.08);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.23);
-  background: #20ba5a;
-}
-.whatsapp-float i { pointer-events: none; }
-@media (max-width: 768px) {
-  .whatsapp-float {
-    width: var(--whatsapp-mobile-size);
-    height: var(--whatsapp-mobile-size);
-    font-size: 1.8rem;
-    bottom: 12px;
-    right: 12px;
-  }
-}
-
-/* AUTRES BLOCS (references carousel, contact, etc. à résumer ou garder selon tes besoins) */
-
-/* ... (ajoute ici tes autres composants spécifiques si besoin, mais sans duplication !) ... */
