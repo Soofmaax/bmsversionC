@@ -1241,3 +1241,27 @@ body {
     padding: 0 0.7rem;
   }
 }
+/* --------- Correction FAQ accordéon (dépliage complet) --------- */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--color-light-alt);
+  padding: 0 1.5rem;
+  transition: max-height 0.3s ease, padding 0.3s;
+  color: var(--color-text-muted);
+}
+
+.faq-item.is-open .faq-answer {
+  max-height: 600px;     /* Ajuste à la taille d'une réponse très longue */
+  padding: 1rem 1.5rem;
+  transition: max-height 0.3s ease, padding 0.3s;
+}
+
+/* Optionnel : amélioration responsive sur mobile */
+@media (max-width: 600px) {
+  .faq-answer,
+  .faq-item.is-open .faq-answer {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+}
