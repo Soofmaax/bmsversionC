@@ -738,3 +738,89 @@ body.dark-theme .header {
   align-items: center;
   justify-content: center;
   font-size:
+
+/* Modification pour la barre de recherche - la rendre blanche */
+.search-bar {
+  background-color: #ffffff; /* Force le blanc au lieu de var(--color-bg) */
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-base);
+  padding: 0.5rem 1rem;
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  width: 200px;
+  transition: background-color var(--transition-duration) var(--transition-curve);
+}
+
+.search-bar:hover {
+  background-color: #f8f9fa; /* Blanc légèrement grisé au hover */
+}
+
+.search-bar:focus-visible {
+  outline: var(--focus-outline-width) solid var(--color-primary);
+  outline-offset: 2px;
+  background-color: #ffffff; /* Reste blanc au focus */
+}
+
+/* Modification pour les boutons de navigation - overlay orange opaque au hover */
+.nav-link {
+  width: auto;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  position: relative; /* Nécessaire pour l'overlay */
+  border-radius: var(--border-radius-base);
+  transition: all 0.3s ease;
+}
+
+/* Overlay orange opaque au hover/focus pour les boutons de navigation */
+@media (hover: hover) {
+  .nav-link:hover {
+    background-color: rgba(255, 140, 66, 0.15); /* Orange opaque avec var(--color-primary) */
+    color: var(--color-primary);
+  }
+  
+  /* S'assurer que l'état actif reste visible */
+  .nav-link.active {
+    background-color: rgba(255, 140, 66, 0.2); /* Légèrement plus opaque pour l'état actif */
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  
+  /* Au hover sur un lien actif, on garde la même couleur mais plus opaque */
+  .nav-link.active:hover {
+    background-color: rgba(255, 140, 66, 0.25);
+  }
+}
+
+/* Pour le mode sombre - adapter les couleurs si nécessaire */
+body.dark-theme .search-bar {
+  background-color: #ffffff; /* Garde le blanc même en mode sombre */
+  color: #2c3e50; /* Texte sombre sur fond blanc */
+}
+
+body.dark-theme .search-bar:hover {
+  background-color: #f8f9fa;
+}
+
+/* Version alternative avec overlay ::before si tu préfères */
+/*
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 140, 66, 0);
+  border-radius: inherit;
+  transition: background-color 0.3s ease;
+  z-index: -1;
+}
+
+.nav-link:hover::before {
+  background-color: rgba(255, 140, 66, 0.15);
+}
+
+.nav-link.active::before {
+  background-color: rgba(255, 140, 66, 0.2);
+}
+*/
