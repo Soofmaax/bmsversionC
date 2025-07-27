@@ -1,58 +1,66 @@
 /* ==========================================================================
-   Feuille de style pour BMS Ventouse
+   Feuille de style principale pour BMS Ventouse
    Version: 7.1 (Optimisations et améliorations globales)
    ========================================================================== */
 
 /* ==========================================================================
-   1. FONDATIONS & VARIABLES GLOBALES
+   1. VARIABLES GLOBALES & FONDATIONS
    ========================================================================== */
 
+/* 
+   Déclaration des variables CSS globales. 
+   Ces variables contrôlent les couleurs, la typographie, les espacements, etc.
+   Pour modifier l'apparence générale du site, il suffit de changer ici !
+*/
 :root {
-  /* Couleurs Thème Clair (Défaut) */
-  --color-primary: #FF8C42;
-  --color-primary-dark: #e67e22;
-  --color-bg: #ffffff;
-  --color-bg-alt: #f8f9fa;
-  --color-surface: #ffffff;
-  --color-text: #2c3e50;
-  --color-text-muted: #6c757d;
-  --color-border: #dee2e6;
-  --color-heading: #212529;
-  --color-overlay: rgba(44, 62, 80, 0.7);
-  --color-hover-overlay: rgba(255, 140, 66, 0.15);
-  --overlay-opacity: 0.7;
+  /* --- Couleurs du thème clair (par défaut) --- */
+  --color-primary: #FF8C42;         /* Couleur principale (orange) pour boutons, liens, accents */
+  --color-primary-dark: #e67e22;    /* Variante plus foncée pour hover/surbrillance */
+  --color-bg: #ffffff;              /* Couleur de fond principale */
+  --color-bg-alt: #f8f9fa;          /* Couleur de fond alternative (sections, hover) */
+  --color-surface: #ffffff;         /* Fond des cartes et surfaces surélevées */
+  --color-text: #2c3e50;            /* Couleur du texte principal */
+  --color-text-muted: #6c757d;      /* Texte secondaire, descriptions */
+  --color-border: #dee2e6;          /* Couleur des bordures */
+  --color-heading: #212529;         /* Couleur des titres */
+  --color-overlay: rgba(44, 62, 80, 0.7);     /* Overlay sombre (ex: hero, modals) */
+  --color-hover-overlay: rgba(255, 140, 66, 0.15); /* Overlay orange sur hover */
+  --overlay-opacity: 0.7;           /* Opacité de l'overlay (ex: hero) */
 
-  /* Typographie & Espacements */
+  /* --- Typographie & Espacements --- */
   --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-size-base: 1rem;
-  --font-size-h1: clamp(2.2rem, 6vw, 3.5rem);
-  --font-size-h3: clamp(1.3rem, 3vw, 1.4rem);
-  --line-height-base: 1.7;
-  --line-height-heading: 1.3;
-  --header-height: 70px;
-  --container-width: 1200px;
-  --spacing-section: 60px;
-  --footer-gap: 2rem;
+  --font-size-base: 1rem;           /* Taille de police de base (16px) */
+  --font-size-h1: clamp(2.2rem, 6vw, 3.5rem); /* Taille responsive pour H1 */
+  --font-size-h3: clamp(1.3rem, 3vw, 1.4rem); /* Idem pour H3 */
+  --line-height-base: 1.7;          /* Hauteur de ligne globale */
+  --line-height-heading: 1.3;       /* Hauteur de ligne pour titres */
+  --header-height: 70px;            /* Hauteur du header (important pour le scroll) */
+  --container-width: 1200px;        /* Largeur max du contenu principal */
+  --spacing-section: 60px;          /* Espace vertical entre les sections */
+  --footer-gap: 2rem;               /* Espacement entre colonnes du footer */
 
-  /* Icônes et Autres */
-  --icon-size: 1rem;
-  --border-radius-base: 8px;
-  --border-radius-large: 12px;
-  --transition-curve: cubic-bezier(0.25, 0.8, 0.25, 1);
-  --transition-duration: 0.4s;
-  --box-shadow-base: 0 4px 25px rgba(0, 0, 0, 0.07);
-  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);
-  --focus-outline-width: 3px;
-  --btn-hover-scale: 1.02;
+  /* --- Icônes & Divers --- */
+  --icon-size: 1rem;                /* Taille de base pour les icônes */
+  --border-radius-base: 8px;        /* Rayon de bordure standard pour boutons, cartes */
+  --border-radius-large: 12px;      /* Rayon de bordure plus grand (cartes) */
+  --transition-curve: cubic-bezier(0.25, 0.8, 0.25, 1); /* Courbe de transition fluide */
+  --transition-duration: 0.4s;      /* Durée des transitions */
+  --box-shadow-base: 0 4px 25px rgba(0, 0, 0, 0.07);  /* Ombre portée par défaut (cartes, boutons) */
+  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.1);  /* Ombre au survol */
+  --focus-outline-width: 3px;       /* Épaisseur du contour focus */
+  --btn-hover-scale: 1.02;          /* Effet de zoom au survol des boutons */
 }
 
-/* Thème Sombre (sera activé via JS ou préf. système) */
+/* 
+  Thème sombre : ces variables remplacent les couleurs du thème clair 
+  quand le body a la classe .dark-theme
+*/
 body.dark-theme {
   --color-bg: #1a202c;
   --color-bg-alt: #2d3748;
   --color-surface: #2d3748;
   --color-text: #e2e8f0;
-  --color-text-muted: #b0c0d0; /* Amélioration contraste */
+  --color-text-muted: #b0c0d0; /* Meilleur contraste */
   --color-border: #4a5568;
   --color-heading: #ffffff;
   --color-overlay: rgba(0, 0, 0, 0.6);
@@ -60,7 +68,11 @@ body.dark-theme {
   --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Dark Mode "System-Aware" */
+/* 
+  Thème sombre automatique selon la préférence système.
+  S'active si l'utilisateur a défini un mode sombre dans Windows/Mac.
+  Ne s'applique QUE si .dark-theme n'est pas déjà présent sur body.
+*/
 @media (prefers-color-scheme: dark) {
   :root:not(body.dark-theme) {
     --color-bg: #1a202c;
@@ -76,12 +88,16 @@ body.dark-theme {
   }
 }
 
-/* Réinitialisation et styles de base */
+/* 
+  Réinitialisation CSS de base :
+  - Retire marges/paddings par défaut
+  - box-sizing : border-box partout (plus facile pour gérer les largeurs)
+*/
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height);
+  scroll-behavior: smooth; /* Scroll fluide pour les ancres */
+  scroll-padding-top: var(--header-height); /* Décale le scroll sous le header fixe */
 }
 
 body {
@@ -90,45 +106,30 @@ body {
   line-height: var(--line-height-base);
   background-color: var(--color-bg);
   color: var(--color-text);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
-  transition: background-color var(--transition-duration) var(--transition-curve), color var(--transition-duration) var(--transition-curve);
+  -webkit-font-smoothing: antialiased; /* Lissage police sur Mac */
+  -moz-osx-font-smoothing: grayscale;  /* Lissage police sur Mac */
+  overflow-x: hidden;                  /* Empêche le scroll horizontal */
+  transition:
+    background-color var(--transition-duration) var(--transition-curve),
+    color var(--transition-duration) var(--transition-curve);
 }
 
-a { color: var(--color-primary); text-decoration: none; transition: color 0.3s ease; }
+a { 
+  color: var(--color-primary); 
+  text-decoration: none; 
+  transition: color 0.3s ease; 
+}
 a:hover { color: var(--color-primary-dark); }
 img { max-width: 100%; height: auto; }
 
-/* Styles pour la barre de recherche */
-.search-form {
-  margin-left: 1rem;
-}
-
-.search-bar {
-  background-color: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--border-radius-base);
-  padding: 0.5rem 1rem;
-  font-size: var(--font-size-base);
-  color: var(--color-text);
-  width: 200px;
-  transition: background-color var(--transition-duration) var(--transition-curve);
-}
-
-.search-bar:hover {
-  background-color: var(--color-hover-overlay);
-}
-
-.search-bar:focus-visible {
-  outline: var(--focus-outline-width) solid var(--color-primary);
-  outline-offset: 2px;
-}
-
 /* ==========================================================================
-   2. ACCESSIBILITÉ & CLASSES UTILITAIRES
+   2. ACCESSIBILITÉ & OUTILS UTILITAIRES
    ========================================================================== */
 
+/* 
+  Lien d'accès rapide pour l'accessibilité (permet de sauter le menu principal).
+  Visible uniquement au focus (tabulation).
+*/
 .skip-link {
   position: absolute;
   top: -40px;
@@ -143,6 +144,10 @@ img { max-width: 100%; height: auto; }
 }
 .skip-link:focus { top: 6px; }
 
+/* 
+  Cache un élément visuellement mais le garde accessible aux lecteurs d'écran.
+  (utile pour les descriptions ou titres cachés)
+*/
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -154,8 +159,23 @@ img { max-width: 100%; height: auto; }
   border: 0;
 }
 
-.container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; }
+/* 
+  Largeur maximale et centrage du contenu.
+  Utiliser .container pour encadrer le contenu principal.
+*/
+.container { 
+  max-width: var(--container-width); 
+  margin: 0 auto; 
+  padding: 0 20px; 
+}
+
+/* Espacement vertical standard pour les sections */
 .section { padding: var(--spacing-section) 0; }
+
+/* 
+  Titres de section (gros, centrés)
+  Modifie la couleur/taille facilement via les variables.
+*/
 .section-title {
   font-weight: 800;
   text-align: center;
@@ -164,6 +184,8 @@ img { max-width: 100%; height: auto; }
   font-size: var(--font-size-h1);
   line-height: var(--line-height-heading);
 }
+
+/* Sous-titres de section, plus petits, couleur atténuée */
 .section-subtitle {
   font-size: clamp(1rem, 2.5vw, 1.1rem);
   text-align: center;
@@ -175,9 +197,13 @@ img { max-width: 100%; height: auto; }
 }
 
 /* ==========================================================================
-   3. STRUCTURE DE LA PAGE (Header, Footer, Menu Mobile)
+   3. STRUCTURE (HEADER, NAVIGATION, FOOTER)
    ========================================================================== */
 
+/* 
+  Header fixe en haut de page, semi-transparent, avec effet de flou.
+  Le border-bottom sépare visuellement le header du contenu.
+*/
 .header {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
@@ -187,12 +213,19 @@ img { max-width: 100%; height: auto; }
   right: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--color-border);
-  transition: background-color var(--transition-duration) var(--transition-curve), border-color var(--transition-duration) var(--transition-curve);
+  transition:
+    background-color var(--transition-duration) var(--transition-curve),
+    border-color var(--transition-duration) var(--transition-curve);
 }
+/* Version dark du header */
 body.dark-theme .header {
   background: rgba(26, 32, 44, 0.8);
 }
 
+/* 
+  Navigation principale : 
+  Flexbox pour placer le logo, les liens, la recherche.
+*/
 .nav {
   display: flex;
   justify-content: space-between;
@@ -200,16 +233,13 @@ body.dark-theme .header {
   height: var(--header-height);
   gap: 1rem;
 }
-.nav > * {
-  flex: 0 0 auto;
-}
+.nav > * { flex: 0 0 auto; }
+.nav__wrapper { display: flex; align-items: center; gap: 1rem; }
 
-.nav__wrapper {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
+/* 
+  Logo du site : 
+  Texte + image alignés verticalement.
+*/
 .logo {
   display: flex;
   align-items: center;
@@ -221,7 +251,11 @@ body.dark-theme .header {
 .logo img { width: 40px; height: 40px; margin-right: 12px; }
 .logo .bms { color: var(--color-primary); }
 
-/* --- MENU MOBILE (Mobile First) --- */
+/*
+  ---- MENU MOBILE (affiché sur petits écrans) ----
+  Par défaut, le menu est caché hors écran (transform: translateX(-100%)).
+  Quand on ajoute la classe .active, il coulisse à gauche.
+*/
 .nav-links {
   display: flex;
   flex-direction: column;
@@ -241,6 +275,8 @@ body.dark-theme .header {
   will-change: transform;
 }
 .nav-links.active { transform: translateX(0); }
+
+/* Styles pour chaque lien du menu */
 .nav-link {
   width: 100%;
   text-align: left;
@@ -257,6 +293,10 @@ body.dark-theme .header {
   outline: none;
 }
 
+/* 
+  Bouton "burger" pour ouvrir/fermer le menu mobile.
+  Les 3 <span> forment les barres du burger, animées à l'ouverture.
+*/
 .hamburger {
   display: flex;
   flex-direction: column;
@@ -278,6 +318,10 @@ body.dark-theme .header {
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
+/* 
+  Overlay sombre derrière le menu mobile.
+  S'affiche (visible + opaque) quand le menu est ouvert.
+*/
 .nav-overlay {
   position: fixed;
   top: var(--header-height);
@@ -292,7 +336,11 @@ body.dark-theme .header {
 }
 .nav-overlay.active { opacity: 1; visibility: visible; }
 
-/* Footer */
+/* 
+  ---- FOOTER ----
+  Utilise une grille pour organiser les colonnes.
+  Couleur de fond sombre, texte atténué.
+*/
 .footer {
   background-color: #2c3e50;
   color: var(--color-text-muted);
@@ -351,6 +399,10 @@ body.dark-theme .header {
   color: var(--color-text-muted);
 }
 
+/* 
+  ---- RESPONSIVE (adaptation mobile/tablette/desktop) ----
+  Les grilles et paddings changent selon la largeur de l'écran
+*/
 @media (min-width: 576px) {
   .footer-bottom-content {
     flex-direction: row;
@@ -360,8 +412,8 @@ body.dark-theme .header {
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-links { grid-template-columns: 1fr 1fr; }
 }
-
 @media (min-width: 769px) {
+  /* Cache burger menu et overlay sur desktop */
   .hamburger, .nav-overlay { display: none; }
   .nav-links {
     position: static;
@@ -399,12 +451,14 @@ body.dark-theme .header {
   .search-bar { width: 250px; }
   .footer-grid { gap: calc(var(--footer-gap) * 2); }
 }
-
 @media (min-width: 992px) {
   .services-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* --- Gestion du survol --- */
+/* 
+  ---- EFFETS DE SURVOL (hover) ----
+  Appliqués uniquement si l'appareil supporte le hover (évite les bugs sur mobile)
+*/
 @media (hover: hover) {
   .service-card:hover, .reference-card:hover {
     transform: translateY(-8px);
@@ -428,7 +482,10 @@ body.dark-theme .header {
   .search-bar:hover { background-color: var(--color-hover-overlay); }
 }
 
-/* --- Gestion du focus --- */
+/* 
+  ---- EFFETS DE FOCUS (clavier/accessibilité) ----
+  Outline orange épais (variable), arrondi comme les boutons.
+*/
 :focus-visible {
   outline: var(--focus-outline-width) solid var(--color-primary);
   outline-offset: 2px;
@@ -436,7 +493,10 @@ body.dark-theme .header {
 }
 :focus:not(:focus-visible) { outline: none; }
 
-/* --- Réduction des animations --- */
+/* 
+  ---- RÉDUCTION DES ANIMATIONS (accessibilité) ----
+  Si l'utilisateur préfère peu d'animations, tout est instantané.
+*/
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -447,7 +507,10 @@ body.dark-theme .header {
   .fade-in, .slide-up, .service-card, .hero-content, .nav-link { animation: none !important; transition: none !important; }
 }
 
-/* --- Styles d'impression --- */
+/* 
+  ---- STYLES D'IMPRESSION ----
+  Cache les éléments non nécessaires à l'impression.
+*/
 @media print {
   .header, .footer, .hamburger, .nav-overlay, .whatsapp-float, .btn, .cta-section { display: none !important; }
   body { color: #000; background: #fff; }
@@ -457,9 +520,13 @@ body.dark-theme .header {
 }
 
 /* ==========================================================================
-   4. COMPOSANTS
+   4. COMPOSANTS (BOUTONS, CARTES, ETC.)
    ========================================================================== */
 
+/* 
+  Bouton générique, avec transitions et effets de focus.
+  Modifier les variantes ci-dessous pour changer l'apparence.
+*/
 .btn {
   display: inline-block;
   padding: 0.8rem 1.8rem;
@@ -473,6 +540,8 @@ body.dark-theme .header {
   will-change: transform, background-color, border-color, color;
 }
 .btn i { transition: transform 0.3s var(--transition-curve); display: inline-block; }
+
+/* Bouton principal : orange plein */
 .btn-primary {
   background-color: var(--color-primary);
   color: #fff;
@@ -480,10 +549,20 @@ body.dark-theme .header {
   box-shadow: var(--box-shadow-base);
 }
 .btn-primary:hover { box-shadow: var(--box-shadow-hover); }
+
+/* Bouton secondaire : bordure blanche, fond transparent */
 .btn-secondary { background-color: transparent; color: #fff; border-color: #fff; }
+
+/* Bouton désactivé (gris) */
 .btn:disabled, .btn.disabled { background-color: #ccc; border-color: #ccc; color: #666; cursor: not-allowed; transform: none; }
+
+/* Effet d'enfoncement au clic */
 .btn:active { transform: scale(0.98); }
 
+/* 
+  Cartes de services : 
+  Fond blanc, ombre portée, arrondi, effet d'élévation au hover.
+*/
 .service-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -504,7 +583,10 @@ body.dark-theme .header {
 }
 .service-card p { color: var(--color-text-muted); }
 
-/* --- Nouvelles cartes de contact --- */
+/* 
+  Cartes de contact (nouveau design): 
+  Similaires aux service-card mais max-width différent, icône plus grande.
+*/
 .contact-direct-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -512,7 +594,6 @@ body.dark-theme .header {
   margin-top: 4rem;
   justify-items: center;
 }
-
 .contact-card {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -524,19 +605,16 @@ body.dark-theme .header {
   transition: all var(--transition-duration) var(--transition-curve);
   will-change: transform, box-shadow;
 }
-
 .contact-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--box-shadow-hover);
 }
-
 .contact-icon {
   font-size: 3rem;
   color: var(--color-primary);
   margin-bottom: 1.5rem;
   display: block;
 }
-
 .contact-card h3 {
   font-size: var(--font-size-h3);
   color: var(--color-heading);
@@ -544,7 +622,6 @@ body.dark-theme .header {
   font-weight: 700;
   line-height: var(--line-height-heading);
 }
-
 .contact-card p {
   color: var(--color-text-muted);
   margin-bottom: 1.5rem;
@@ -555,6 +632,10 @@ body.dark-theme .header {
    5. SECTIONS SPÉCIFIQUES & PAGES
    ========================================================================== */
 
+/* 
+  ---- HERO (bannière principale en haut de page) ----
+  Fond image + overlay sombre, texte centré et blanc.
+*/
 .hero {
   position: relative;
   color: #fff;
@@ -566,7 +647,6 @@ body.dark-theme .header {
   background-color: #2c3e50;
   overflow: hidden;
 }
-
 .hero .hero-content {
   position: relative;
   z-index: 2;
@@ -574,7 +654,6 @@ body.dark-theme .header {
   margin-top: var(--header-height);
   will-change: transform, opacity;
 }
-
 .hero .hero-bg {
   position: absolute;
   top: 0;
@@ -582,11 +661,10 @@ body.dark-theme .header {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Fallback pour IE (commentaire) */
+  /* Fallback IE */
   z-index: 0;
   loading: eager;
 }
-
 .hero-overlay {
   position: absolute;
   top: 0;
@@ -596,7 +674,6 @@ body.dark-theme .header {
   background: linear-gradient(to bottom, rgba(0, 0, 0, var(--overlay-opacity)) 0%, rgba(0, 0, 0, calc(var(--overlay-opacity) * 0.6)) 100%);
   z-index: 1;
 }
-
 .hero h1 {
   font-weight: 800;
   margin-bottom: 1.5rem;
@@ -622,6 +699,7 @@ body.dark-theme .header {
 
 .cta-section { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: #fff; text-align: center; }
 
+/* FAQ (Foire aux Questions) : accordéon */
 .faq-item {
   background: var(--color-surface);
   margin-bottom: 1rem;
@@ -725,6 +803,10 @@ body.dark-theme .header {
   color: var(--color-heading);
 }
 
+/* 
+  Bouton WhatsApp flottant (coin bas droit)
+  Style circulaire, vert WhatsApp.
+*/
 .whatsapp-float {
   position: fixed;
   bottom: 20px;
@@ -738,10 +820,18 @@ body.dark-theme .header {
   align-items: center;
   justify-content: center;
   font-size:
+}
 
-/* Modification pour la barre de recherche - la rendre blanche */
+/* ==========================================================================
+   6. MODIFICATIONS SPÉCIFIQUES NAVIGATION & RECHERCHE
+   ========================================================================== */
+
+/* 
+  Barre de recherche : 
+  Fond blanc forcé, bord arrondi, ne change pas en dark mode.
+*/
 .search-bar {
-  background-color: #ffffff; /* Force le blanc au lieu de var(--color-bg) */
+  background-color: #ffffff; /* Toujours blanc */
   border: 1px solid var(--color-border);
   border-radius: var(--border-radius-base);
   padding: 0.5rem 1rem;
@@ -750,58 +840,62 @@ body.dark-theme .header {
   width: 200px;
   transition: background-color var(--transition-duration) var(--transition-curve);
 }
-
 .search-bar:hover {
   background-color: #f8f9fa; /* Blanc légèrement grisé au hover */
 }
-
 .search-bar:focus-visible {
   outline: var(--focus-outline-width) solid var(--color-primary);
   outline-offset: 2px;
   background-color: #ffffff; /* Reste blanc au focus */
 }
 
-/* Modification pour les boutons de navigation - overlay orange opaque au hover */
+/* 
+  Lien de navigation : 
+  Ajoute un overlay orange opaque sur hover/active pour bien différencier.
+  Utilise rgba(255, 140, 66, ...) pour la transparence.
+*/
 .nav-link {
   width: auto;
   font-size: 1rem;
   padding: 0.5rem 1rem;
-  position: relative; /* Nécessaire pour l'overlay */
+  position: relative; /* Nécessaire pour overlay éventuel */
   border-radius: var(--border-radius-base);
   transition: all 0.3s ease;
 }
 
-/* Overlay orange opaque au hover/focus pour les boutons de navigation */
+/* Overlay orange opaque au hover/focus pour les liens du menu */
 @media (hover: hover) {
   .nav-link:hover {
-    background-color: rgba(255, 140, 66, 0.15); /* Orange opaque avec var(--color-primary) */
+    background-color: rgba(255, 140, 66, 0.15); /* Overlay orange pâle */
     color: var(--color-primary);
   }
-  
-  /* S'assurer que l'état actif reste visible */
   .nav-link.active {
-    background-color: rgba(255, 140, 66, 0.2); /* Légèrement plus opaque pour l'état actif */
+    background-color: rgba(255, 140, 66, 0.2); /* Overlay un peu plus fort pour actif */
     color: var(--color-primary);
     font-weight: 700;
   }
-  
-  /* Au hover sur un lien actif, on garde la même couleur mais plus opaque */
   .nav-link.active:hover {
-    background-color: rgba(255, 140, 66, 0.25);
+    background-color: rgba(255, 140, 66, 0.25); /* Encore plus opaque si actif + hover */
   }
 }
 
-/* Pour le mode sombre - adapter les couleurs si nécessaire */
+/* 
+  Version dark : 
+  La barre de recherche reste blanche, texte foncé même en mode sombre.
+*/
 body.dark-theme .search-bar {
-  background-color: #ffffff; /* Garde le blanc même en mode sombre */
-  color: #2c3e50; /* Texte sombre sur fond blanc */
+  background-color: #ffffff;
+  color: #2c3e50;
 }
-
 body.dark-theme .search-bar:hover {
   background-color: #f8f9fa;
 }
 
-/* Version alternative avec overlay ::before si tu préfères */
+/* 
+  ALTERNATIVE : overlay avec ::before (décommenter si besoin)
+  Cela permettrait d'ajouter l'overlay orange via un pseudo-élément,
+  sans changer le background-color du lien.
+*/
 /*
 .nav-link::before {
   content: '';
@@ -815,11 +909,9 @@ body.dark-theme .search-bar:hover {
   transition: background-color 0.3s ease;
   z-index: -1;
 }
-
 .nav-link:hover::before {
   background-color: rgba(255, 140, 66, 0.15);
 }
-
 .nav-link.active::before {
   background-color: rgba(255, 140, 66, 0.2);
 }
