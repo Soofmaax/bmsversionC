@@ -1,5 +1,5 @@
 /* ==========================================================================
-   FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1) CORRIGÉE
+   FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1) CORRIGÉE ET MODERNE
    ========================================================================== */
 
 /* 1. VARIABLES GLOBALES & FONDATIONS */
@@ -38,7 +38,7 @@
   --whatsapp-margin: 24px;
 }
 body.dark-theme, 
-:root:has(body.dark-theme), 
+:root:has(body.dark-theme),
 @media (prefers-color-scheme: dark) {
   --color-light: #1a202c;
   --color-light-alt: #2d3748;
@@ -249,26 +249,47 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 
 /* 4. COMPOSANTS PRINCIPAUX (Boutons, Cartes, etc.) */
 .btn {
-  display: inline-block;
-  padding: 0.8rem 1.8rem;
-  border-radius: var(--border-radius-base);
-  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
   font-weight: 700;
-  transition: var(--transition-base);
-  border: 2px solid transparent;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 32px;
+  padding: 0.9rem 1.7rem;
   cursor: pointer;
-  font-size: 1rem;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+  text-decoration: none;
+  justify-content: center;
+  min-width: 210px;
 }
 .btn-primary {
   background-color: var(--color-primary);
   color: var(--color-light);
   border-color: var(--color-primary);
 }
-.btn-primary:hover {
+.btn-primary:hover, .btn-primary:focus {
   background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
-  transform: translateY(-2px);
+  color: #fff;
 }
+.btn-whatsapp {
+  background-color: #25d366;
+  color: #fff;
+  border-color: #25d366;
+}
+.btn-whatsapp:hover, .btn-whatsapp:focus {
+  background-color: #1ebd5a;
+  color: #fff;
+}
+
+.btn-primary i, .btn-whatsapp i {
+  font-size: 1.25em;
+  margin-right: 0.5em;
+  vertical-align: middle;
+}
+
+/* Pour les autres boutons génériques */
 .btn-secondary {
   background-color: transparent;
   color: var(--color-light);
@@ -318,13 +339,12 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 /* === HERO (texte sur image, image 100% visible, pas rognée) === */
 .hero {
   position: relative;
-  min-height: 480px;
+  min-height: 420px;
   display: flex;
   align-items: stretch;
   justify-content: center;
   color: var(--color-light);
   background: #000; /* fallback si image ne charge pas */
-  /* plus de background orange ou gris ! */
   overflow: hidden;
 }
 .hero-bg {
@@ -334,7 +354,6 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   height: 100%;
   z-index: 1;
   pointer-events: none;
-  /* Pour s'assurer que l'image n'est pas rognée */
   display: flex;
   align-items: stretch;
 }
@@ -358,8 +377,7 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   background: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.55) 100%);
   color: #fff;
   text-align: center;
-  padding-top: calc(var(--header-height) + 40px);
-  padding-bottom: 60px;
+  padding: 90px 5vw 40px;
   width: 100vw;
 }
 .hero-overlay .container {
@@ -368,27 +386,39 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 }
 .hero h1, .hero p {
   color: #fff;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.44);
 }
 .hero h1 {
-  font-size: 3rem;
+  font-size: 2.1rem;
   font-weight: 800;
-  margin-bottom: 1.5rem;
-  line-height: 1.2;
+  margin-bottom: 1rem;
+  line-height: 1.18;
 }
 .hero p {
-  font-size: 1.2rem;
-  margin-bottom: 2.5rem;
-  opacity: 0.95;
-  max-width: 700px;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.97;
+  max-width: 90vw;
   margin-left: auto;
   margin-right: auto;
 }
 .hero-buttons {
   display: flex;
-  gap: 1.5rem;
+  flex-direction: column;
+  gap: 1.1rem;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+/* Desktop/tablette : boutons côte à côte */
+@media (min-width: 600px) {
+  .hero-buttons {
+    flex-direction: row;
+    gap: 1.5rem;
+    width: auto;
+  }
+  .hero h1 { font-size: 2.6rem; }
+  .hero p { font-size: 1.2rem; max-width: 650px; }
 }
 
 /* Centrage du bouton CTA "Découvrir tous nos services" */
