@@ -1,66 +1,42 @@
 /* ==========================================================================
    FEUILLE DE STYLE BMS VENTOUSE - VERSION MIXTE (V2 + V7.1)
-   ---------------------------------------------
-   - Fusion du design pro/épuré de la V2
-   - Puissance technique (dark mode, accessibilité) de la V7.1
-   - Commentaires détaillés pour chaque bloc !
    ========================================================================== */
 
-
-/* ==========================================================================
-   1. VARIABLES GLOBALES & FONDATIONS
-   ========================================================================== */
-
-/* 
-   Les variables CSS permettent de changer toute l'identité visuelle ici :
-   - couleurs
-   - typos
-   - espacements
-   - arrondis
-   - ombres
-   - transitions
-   Modifie-les pour modifier l'apparence générale du site !
-*/
+/* 1. VARIABLES GLOBALES & FONDATIONS */
 :root {
-  /* === Palette principale === */
-  --color-primary: #FF8C42;           /* Orange principal (boutons, accents) */
-  --color-primary-dark: #e67e22;      /* Orange foncé (hover, surbrillance) */
-  --color-dark: #2c3e50;              /* Sombre (footer, titres, header) */
-  --color-dark-lighten: #34495e;      /* Sombre plus doux (footer clair) */
-  --color-light: #ffffff;             /* Blanc pur (fonds, texte clair) */
-  --color-light-alt: #f8f9fa;         /* Blanc cassé, pour fonds alternatifs */
-  --color-text: #333;                 /* Texte principal */
-  --color-text-muted: #666;           /* Texte secondaire, descriptions */
-  --color-border: #e0e0e0;            /* Bordures discrètes */
+  --color-primary: #FF8C42;
+  --color-primary-dark: #e67e22;
+  --color-dark: #2c3e50;
+  --color-dark-lighten: #34495e;
+  --color-light: #ffffff;
+  --color-light-alt: #f8f9fa;
+  --color-text: #333;
+  --color-text-muted: #666;
+  --color-border: #e0e0e0;
 
-  /* === Typographie === */
   --font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-size-base: 1rem;            /* Taille de police par défaut (16px) */
-  --font-size-h1: clamp(2.2rem, 6vw, 3.5rem); /* Responsive H1 */
-  --font-size-h3: clamp(1.3rem, 3vw, 1.4rem); /* Responsive H3 */
-  --line-height-base: 1.7;           /* Hauteur de ligne générale */
-  --line-height-heading: 1.3;        /* Hauteur de ligne titres */
+  --font-size-base: 1rem;
+  --font-size-h1: clamp(2.2rem, 6vw, 3.5rem);
+  --font-size-h3: clamp(1.3rem, 3vw, 1.4rem);
+  --line-height-base: 1.7;
+  --line-height-heading: 1.3;
 
-  /* === Espacements & dimensions === */
-  --container-width: 1200px;         /* Largeur max du contenu */
-  --spacing-section: 80px;           /* Padding vertical entre sections */
-  --header-height: 70px;             /* Hauteur du header (fixe) */
-  --footer-gap: 2rem;                /* Espace entre colonnes du footer */
+  --container-width: 1200px;
+  --spacing-section: 80px;
+  --header-height: 70px;
+  --footer-gap: 2rem;
 
-  /* === Divers === */
-  --border-radius-base: 8px;         /* Arrondi standard (boutons, cartes) */
-  --border-radius-large: 12px;       /* Arrondi pour grosses cartes */
-  --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* Transition douce sur tout */
-  --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.08); /* Ombre légère par défaut */
-  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.11); /* Ombre au survol */
-  --focus-outline-width: 3px;        /* Epaisseur du contour focus */
-  --btn-hover-scale: 1.02;           /* Zoom léger au hover sur bouton */
+  --border-radius-base: 8px;
+  --border-radius-large: 12px;
+  --transition-base: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.08);
+  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.11);
+  --focus-outline-width: 3px;
+  --btn-hover-scale: 1.02;
+  --whatsapp-size: 60px;
+  --whatsapp-mobile-size: 48px;
+  --whatsapp-margin: 24px;
 }
-
-/* === Thème sombre === 
-   Les variables changent automatiquement quand le body a .dark-theme
-   ou via la préférence système.
-*/
 body.dark-theme, 
 :root:has(body.dark-theme), 
 @media (prefers-color-scheme: dark) {
@@ -69,39 +45,16 @@ body.dark-theme,
   --color-text: #e2e8f0;
   --color-text-muted: #b0c0d0;
   --color-border: #4a5568;
-  --color-dark: #ffffff; /* Titres deviennent blancs */
+  --color-dark: #ffffff;
   --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
-
-/* ==========================================================================
-   2. RESET & ACCESSIBILITÉ
-   ========================================================================== */
-
-/* 
-  RESET CSS : nécessaire pour avoir un rendu propre et cohérent sur tous les navigateurs.
-  - Enlève toutes les marges/paddings par défaut
-  - Active box-sizing border-box partout (plus pratique pour les layouts)
-*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/*
-  Active le scroll fluide pour les liens d'ancre sur toute la page.
-*/
+/* 2. RESET & ACCESSIBILITÉ */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: var(--header-height); /* Décale l'ancre sous le header */
+  scroll-padding-top: var(--header-height);
 }
-
-/*
-  Styles de base pour <body> :
-  - Définit la police, la couleur de texte, le fond
-  - Lissage des polices pour un rendu plus net sur Mac
-*/
 body {
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
@@ -113,35 +66,13 @@ body {
   overflow-x: hidden;
   transition: background-color 0.4s, color 0.4s;
 }
-
-/*
-  Liens :
-  - Orange par défaut
-  - Changement de couleur au survol
-  - Pas de soulignement
-*/
 a {
   color: var(--color-primary);
   text-decoration: none;
   transition: color 0.3s;
 }
-a:hover {
-  color: var(--color-primary-dark);
-}
-
-/*
-  Images :
-  - Toujours responsive (jamais plus larges que leur conteneur)
-*/
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/*
-  Lien "skip to content" pour l'accessibilité clavier
-  Permet aux utilisateurs de tabuler directement au contenu principal.
-*/
+a:hover { color: var(--color-primary-dark); }
+img { max-width: 100%; height: auto; }
 .skip-link {
   position: absolute;
   top: -40px;
@@ -154,41 +85,19 @@ img {
   transition: top 0.3s;
   text-decoration: none;
 }
-.skip-link:focus {
-  top: 8px;
-}
-
-/*
-  Classe utilitaire pour cacher un élément visuellement
-  (mais le garder accessible aux lecteurs d'écran)
-*/
+.skip-link:focus { top: 8px; }
 .visually-hidden {
   position: absolute !important;
   width: 1px; height: 1px;
   padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
+  overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;
 }
-
-/*
-  Focus visible pour l'accessibilité :
-  - Contour orange épais sur les éléments au focus clavier
-  - Arrondi comme les boutons
-*/
 :focus-visible {
   outline: var(--focus-outline-width) solid var(--color-primary);
   outline-offset: 2px;
   border-radius: var(--border-radius-base);
 }
-:focus:not(:focus-visible) {
-  outline: none;
-}
-
-/*
-  Réduction des animations si l'utilisateur l'a demandé dans Windows/Mac
-  (Préférence accessibilité)
-*/
+:focus:not(:focus-visible) { outline: none; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -198,30 +107,13 @@ img {
   }
 }
 
-/* ==========================================================================
-   3. STRUCTURE PRINCIPALE (Header, Nav, Footer)
-   ========================================================================== */
-
-/*
-  .container : largeur max + centrage horizontal
-  Utilise cette classe pour tous les blocs principaux
-*/
+/* 3. STRUCTURE PRINCIPALE (Header, Nav, Footer) */
 .container {
   max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 20px;
 }
-
-/*
-  .section : espacement vertical standard entre les blocs principaux
-*/
-.section {
-  padding: var(--spacing-section) 0;
-}
-
-/*
-  Titres de section principaux : gros, en gras, centrés
-*/
+.section { padding: var(--spacing-section) 0; }
 .section-title {
   font-size: 2.5rem;
   font-weight: 800;
@@ -238,13 +130,6 @@ img {
   margin-left: auto;
   margin-right: auto;
 }
-
-/* === HEADER FIXE ===
-  - Fond blanc semi-transparent (ou sombre en dark)
-  - Flou de fond (backdrop-filter)
-  - Bordure basse
-  - Z-index élevé pour passer devant le reste
-*/
 .header {
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(10px);
@@ -252,20 +137,8 @@ img {
   top: 0; left: 0; right: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--color-border);
-  /* Si tu vois une fine barre orange au-dessus du logo,
-     c'est peut-être cette border-bottom qui prend une couleur orangée !
-     --color-border doit rester gris clair, jamais orange.
-     Si tu veux la supprimer totalement :
-     border-bottom: none;
-  */
 }
-body.dark-theme .header {
-  background: rgba(26,32,44,0.92);
-}
-
-/* 
-  Barre de navigation principale : flex pour aligner logo à gauche & liens à droite
-*/
+body.dark-theme .header { background: rgba(26,32,44,0.92); }
 .nav {
   display: flex;
   justify-content: space-between;
@@ -273,7 +146,6 @@ body.dark-theme .header {
   height: var(--header-height);
   gap: 1rem;
 }
-
 .logo {
   display: flex;
   align-items: center;
@@ -281,20 +153,11 @@ body.dark-theme .header {
   font-weight: 800;
   text-decoration: none;
   color: var(--color-dark);
-  background: none; /* Vérifie bien qu'aucun background ou border ne traine ici */
+  background: none;
   border: none;
 }
-.logo img {
-  width: 40px; height: 40px; margin-right: 12px;
-}
+.logo img { width: 40px; height: 40px; margin-right: 12px; }
 .logo .bms { color: var(--color-primary); }
-
-/*
-  Liens du menu principal (desktop) :
-  - Horizontaux, espacés, sans puce
-  - Arrondi, padding, transition fluide
-  - Orange en fond + texte blanc au survol ou actif
-*/
 .nav-links {
   display: flex;
   gap: 1rem;
@@ -313,13 +176,6 @@ body.dark-theme .header {
   background-color: var(--color-primary);
   color: var(--color-light);
 }
-
-/* === BOUTON "Contact" dans la nav ===
-   Si ton bouton "Contact" sort de l'écran sur desktop, 
-   vérifie ici le padding et le width (pas de width fixe).
-   Si tu veux un bouton plus visible, tu peux ajouter une classe .btn à ce lien.
-   Pour le responsive, voir plus bas.
-*/
 .nav-link.btn {
   font-weight: 700;
   background: var(--color-primary);
@@ -333,13 +189,8 @@ body.dark-theme .header {
   color: var(--color-light);
   transform: scale(1.04);
 }
-
-/* === MENU BURGER ===
-   Masqué sur desktop, visible sur mobile
-   Les 3 barres sont des <span> animés
-*/
 .hamburger {
-  display: none; /* Affiché en mobile/tablette */
+  display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
@@ -353,10 +204,6 @@ body.dark-theme .header {
   transition: 0.3s;
   border-radius: 2px;
 }
-
-/*
-  FOOTER sombre, grille à 2 ou 3 colonnes, textes clairs, liens bien visibles.
-*/
 .footer {
   background-color: var(--color-dark);
   color: var(--color-light);
@@ -385,7 +232,6 @@ body.dark-theme .header {
 .footer-column a { color: #a0aec0; }
 .footer-column a:hover { color: var(--color-light); }
 .footer-column i { margin-right: 0.5rem; color: var(--color-primary); }
-
 .footer-bottom {
   border-top: 1px solid var(--color-dark-lighten);
   padding: 1.5rem 0;
@@ -398,15 +244,7 @@ body.dark-theme .header {
   color: #a0aec0;
 }
 
-/* ==========================================================================
-   4. COMPOSANTS PRINCIPAUX (Boutons, Cartes, etc.)
-   ========================================================================== */
-
-/*
-  Boutons génériques. 
-  Utilise .btn-primary pour un bouton orange, .btn-secondary pour un bouton blanc.
-  Ajoute la classe .btn à tout <a> ou <button> pour appliquer le style.
-*/
+/* 4. COMPOSANTS PRINCIPAUX (Boutons, Cartes, etc.) */
 .btn {
   display: inline-block;
   padding: 0.8rem 1.8rem;
@@ -437,12 +275,6 @@ body.dark-theme .header {
   background-color: var(--color-light);
   color: var(--color-dark);
 }
-
-/*
-  Cartes de service ou de contact :
-  - Fond blanc, arrondi, ombre portée, padding généreux
-  - Effet d'élévation au survol
-*/
 .service-card, .contact-card {
   background: var(--color-light);
   border-radius: var(--border-radius-large);
@@ -466,7 +298,6 @@ body.dark-theme .header {
   font-weight: 700;
 }
 .service-card p, .contact-card p { color: var(--color-text-muted); }
-
 .badge {
   background: rgba(255, 140, 66, 0.1);
   color: var(--color-primary);
@@ -479,22 +310,52 @@ body.dark-theme .header {
 .badge-netflix { background: rgba(229, 9, 20, 0.1); color: #e50914; border-color: rgba(229, 9, 20, 0.2); }
 .badge-jo { background: rgba(255, 215, 0, 0.1); color: #b7950b; border-color: rgba(255, 215, 0, 0.2); }
 
-/* ==========================================================================
-   5. SECTIONS SPÉCIFIQUES (Hero, FAQ, Réalisations, etc.)
-   ========================================================================== */
+/* 5. SECTIONS SPÉCIFIQUES (Hero, FAQ, Réalisations, etc.) */
 
-/* === HERO (bannière principale) ===
-   - Texte blanc centré
-   - Padding important pour l'effet "hero"
-*/
+/* === HERO (texte sur image) === */
 .hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
   color: var(--color-light);
-  text-align: center;
   background: var(--color-dark);
 }
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
 .hero-overlay {
-  padding: 150px 0 80px;
-  margin-top: var(--header-height);
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.65) 100%);
+  color: #fff;
+  text-align: center;
+  padding: 3vw 10vw;
+}
+.hero-overlay .container {
+  z-index: 3;
+  position: relative;
+}
+.hero h1, .hero p {
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 .hero h1 {
   font-size: 3rem;
@@ -517,18 +378,23 @@ body.dark-theme .header {
   flex-wrap: wrap;
 }
 
-/*
-  Grille responsive pour afficher les services (ou réalisations)
-*/
+/* Centrage du bouton CTA "Découvrir tous nos services" */
+.cta-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Grille responsive pour services/réalisations */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-/*
-  Témoignages clients (carte blanche, texte en italique, auteur en gras)
-*/
+/* Témoignages clients */
 .testimonial-card {
   background: var(--color-light);
   padding: 2.5rem;
@@ -546,18 +412,14 @@ body.dark-theme .header {
 }
 .testimonial-card footer span { color: var(--color-primary); }
 
-/*
-  Section Call-To-Action (CTA) : fond dégradé sombre, texte blanc
-*/
+/* CTA section */
 .cta-section {
   background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-lighten) 100%);
   color: var(--color-light);
   text-align: center;
 }
 
-/*
-  FAQ (accordéon) : question cliquable, réponse cachée/affichée
-*/
+/* FAQ accordéon */
 .faq-item {
   background: var(--color-light);
   margin-bottom: 1rem;
@@ -585,11 +447,9 @@ body.dark-theme .header {
   overflow: hidden;
   transition: max-height 0.4s, padding 0.4s;
 }
-.faq-item.is-open .faq-answer {
-  padding-bottom: 1.5rem;
-}
+.faq-item.is-open .faq-answer { padding-bottom: 1.5rem; }
 
-/* === MISE EN PAGE POUR LES ÉTUDES DE CAS (réalisations) === */
+/* Études de cas (réalisations) */
 .case-study {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -598,7 +458,7 @@ body.dark-theme .header {
   margin-bottom: var(--spacing-section);
 }
 .case-study.reverse {
-  grid-template-columns: 1fr 1fr; /* Image à droite */
+  grid-template-columns: 1fr 1fr;
 }
 .case-study.reverse .case-study-image { grid-column: 2; grid-row: 1; }
 .case-study.reverse .case-study-content { grid-column: 1; grid-row: 1; }
@@ -608,10 +468,7 @@ body.dark-theme .header {
   border-radius: var(--border-radius-large);
   box-shadow: var(--box-shadow-base);
 }
-.client-logo {
-  height: 35px;
-  margin-bottom: 1.5rem;
-}
+.client-logo { height: 35px; margin-bottom: 1.5rem; }
 .case-study-content h3 {
   font-size: 2rem;
   font-weight: 800;
@@ -643,14 +500,12 @@ body.dark-theme .header {
 }
 .testimonial-inline p { font-style: italic; }
 .testimonial-inline footer { font-weight: 700; margin-top: 0.5rem; }
-
 .references-logos img {
   height: 45px;
   opacity: 0.7;
   transition: opacity 0.3s;
 }
 .references-logos img:hover { opacity: 1; }
-
 .legal-section {
   margin-bottom: 2rem;
   padding-bottom: 2rem;
@@ -664,26 +519,51 @@ body.dark-theme .header {
   margin-bottom: 1rem;
 }
 
-/* ==========================================================================
-   6. RESPONSIVE DESIGN
-   ========================================================================== */
+/* 5bis. BOUTON WHATSAPP FLOTTANT, TOUJOURS VISIBILE MAIS NE CACHE PAS LE FOOTER */
+.whatsapp-float {
+  position: fixed;
+  bottom: var(--whatsapp-margin);
+  right: var(--whatsapp-margin);
+  width: var(--whatsapp-size);
+  height: var(--whatsapp-size);
+  background: #25d366;
+  color: white;
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  font-size: 2.3rem;
+  transition: transform 0.2s, box-shadow 0.2s, bottom 0.2s;
+  cursor: pointer;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.23);
+  background: #20ba5a;
+}
+.whatsapp-float i {
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .whatsapp-float {
+    width: var(--whatsapp-mobile-size);
+    height: var(--whatsapp-mobile-size);
+    font-size: 1.8rem;
+    bottom: 12px;
+    right: 12px;
+  }
+}
 
-/*
-  - Les grilles passent en colonne simple sur tablette/mobile
-  - Réduit la taille des titres
-  - Affiche le menu burger, masque les liens de nav
-  - Ajuste le hero, les paddings, les grilles, etc.
-*/
+/* 6. RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .section-title { font-size: 2rem; }
-  .header .nav-links { display: none; } /* Pour JS : menu mobile */
+  .header .nav-links { display: none; }
   .header .hamburger { display: flex; }
-
   .hero h1 { font-size: 2.2rem; }
   .hero p { font-size: 1.1rem; }
-
   .footer-content, .footer-links { grid-template-columns: 1fr; }
-  
   .case-study, .case-study.reverse {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -692,16 +572,18 @@ body.dark-theme .header {
   .case-study.reverse .case-study-content {
     grid-column: 1;
   }
-
-  /* Pour éviter que le bouton contact disparaisse sur mobile :
-     Vérifie ici que .nav-link.btn, .btn ou .contact n'ont pas de width fixe ou de margin trop grande
-     Si besoin, tu peux forcer : width: 100%; margin: 0 auto;
-  */
   .nav-link.btn {
     width: 100%;
     margin: 0.3rem 0;
     text-align: center;
     display: block;
     padding: 0.8rem 0;
+  }
+  .hero-bg img {
+    min-height: 300px;
+    object-position: center top;
+  }
+  .hero-overlay {
+    padding: 80px 5vw 50px;
   }
 }
