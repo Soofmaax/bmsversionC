@@ -1,4 +1,9 @@
 /* ==========================================================================
+   Feuille de style pour BMS Ventouse
+   Version: 7.1 (Optimisations et améliorations globales)
+   ========================================================================== */
+
+/* ==========================================================================
    1. FONDATIONS & VARIABLES GLOBALES
    ========================================================================== */
 
@@ -732,138 +737,4 @@ body.dark-theme .header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  box-shadow: var(--box-shadow-base);
-  z-index: 999;
-  transition: transform 0.3s ease;
-  will-change: transform;
-}
-
-/* ==========================================================================
-   6. ANIMATIONS & ÉTATS
-   ========================================================================== */
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { opacity: 0; transform: translateY(100%); } to { opacity: 1; transform: translateY(0); } }
-.fade-in { animation: fadeIn 0.6s ease-out forwards; }
-.slide-up { animation: slideUp 0.6s var(--transition-curve) forwards; }
-
-/* ==========================================================================
-   7. EXTENSIONS FUTURES (Modals, Formulaires, etc.)
-   ========================================================================== */
-/* --modal-bg: var(--color-surface); */
-/* .modal { background: var(--modal-bg); border-radius: var(--border-radius-large); } */
-
-/* ==========================================================================
-   8. RESPONSIVE DESIGN & MÉDIAS
-   ========================================================================== */
-
-/* --- Mobile (max-width: 576px) --- */
-@media (max-width: 576px) {
-  .footer-grid { gap: 1.5rem; }
-  .footer-bottom-content { gap: 0.5rem; }
-}
-
-/* --- Tablette --- */
-@media (min-width: 576px) {
-  .services-grid { grid-template-columns: repeat(2, 1fr); }
-  .hero-buttons { flex-direction: row; flex-wrap: wrap; }
-  .hero-buttons .btn { width: auto; flex: 1; min-width: 200px; }
-  .footer-links { grid-template-columns: repeat(2, 1fr); }
-  .contact-direct-grid { grid-template-columns: repeat(2, 1fr); justify-content: center; }
-  .footer-bottom-content { flex-direction: row; justify-content: center; gap: 1rem; }
-}
-
-/* --- Desktop --- */
-@media (min-width: 769px) {
-  .hamburger, .nav-overlay { display: none; }
-  .nav-links {
-    position: static;
-    flex-direction: row;
-    height: auto;
-    width: auto;
-    background: none;
-    padding: 0;
-    transform: none;
-    transition: none;
-    gap: 1rem;
-    border: none;
-    box-shadow: none;
-  }
-  .nav-link { width: auto; font-size: 1rem; padding: 0.5rem 1rem; }
-  .footer-grid { grid-template-columns: 1.5fr 2fr; }
-  .footer-links { grid-template-columns: repeat(3, 1fr); }
-  .references-grid { grid-template-columns: repeat(2, 1fr); }
-  .services-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .hero-overlay { padding: 150px 0 80px; }
-  .hero-buttons { flex-direction: row; }
-  .hero-buttons .btn { width: auto; }
-  .footer-bottom-content {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    text-align: left;
-  }
-  .nav__wrapper { order: 1; }
-  .search-form { margin-left: 2rem; }
-  .search-bar { width: 250px; }
-  .footer-grid { gap: calc(var(--footer-gap) * 2); }
-}
-
-/* --- Large Desktop --- */
-@media (min-width: 992px) {
-  .services-grid { grid-template-columns: repeat(3, 1fr); }
-  .hero-buttons { gap: 0.5rem; }
-}
-
-/* --- Gestion du survol --- */
-@media (hover: hover) {
-  .service-card:hover, .reference-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--box-shadow-hover);
-  }
-  .btn-primary:hover {
-    background-color: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
-    transform: scale(var(--btn-hover-scale));
-  }
-  .btn-primary:hover i { transform: translateX(4px); }
-  .btn-secondary:hover {
-    background-color: #fff;
-    color: var(--color-text);
-  }
-  .whatsapp-float:hover { transform: scale(1.1); }
-  .nav-link:hover { background-color: var(--color-bg-alt); color: var(--color-primary); }
-  .nav-link.active { background-color: transparent; }
-  body.dark-theme .nav-link:hover { background-color: var(--color-bg-alt); }
-  .faq-question:hover { background-color: var(--color-bg-alt); }
-  .search-bar:hover { background-color: var(--color-hover-overlay); }
-}
-
-/* --- Gestion du focus --- */
-:focus-visible {
-  outline: var(--focus-outline-width) solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: var(--border-radius-base);
-}
-:focus:not(:focus-visible) { outline: none; }
-
-/* --- Réduction des animations --- */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .fade-in, .slide-up, .service-card, .hero-content, .nav-link { animation: none !important; transition: none !important; }
-}
-
-/* --- Styles d'impression --- */
-@media print {
-  .header, .footer, .hamburger, .nav-overlay, .whatsapp-float, .btn, .cta-section { display: none !important; }
-  body { color: #000; background: #fff; }
-  .section { padding: 20px 0; }
-  .hero-overlay { margin-top: 0; padding: 20px 0; background: none; }
-  a { text-decoration: none; color: #000; }
-}
+  font-size:
