@@ -79,6 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
     hamburger.addEventListener('click', handleMenuClick);
     navOverlay.addEventListener('click', () => toggleMenu(false));
     document.addEventListener('keydown', handleKeyDown);
+    
+    // Fermer le menu quand on clique sur un lien
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          toggleMenu(false);
+        }
+      });
+    });
   };
 
   // --------------------------------------------------------------------------
@@ -232,38 +241,38 @@ document.addEventListener('DOMContentLoaded', () => {
     console.error("Erreur lors de l'initialisation des scripts du site :", error);
   }
 });
-<script>
-  window.addEventListener('load', function() {
-    let imgStatus = [];
-    const imgs = document.getElementsByTagName('img');
-    
-    for(let i = 0; i < imgs.length; i++) {
-      const img = imgs[i];
-      imgStatus.push({
-        src: img.src,
-        loaded: img.complete,
-        naturalWidth: img.naturalWidth
-      });
-    }
-    
-    // Créer un élément visible pour afficher les résultats
-    const div = document.createElement('div');
-    div.style.position = 'fixed';
-    div.style.bottom = '0';
-    div.style.left = '0';
-    div.style.right = '0';
-    div.style.background = 'white';
-    div.style.padding = '10px';
-    div.style.zIndex = '10000';
-    div.style.maxHeight = '150px';
-    div.style.overflow = 'auto';
-    div.style.fontSize = '10px';
-    
-    // Ajouter les informations sur les images
-    imgStatus.forEach(status => {
-      div.innerHTML += `<p>${status.src.split('/').pop()}: ${status.loaded ? '✅' : '❌'} (${status.naturalWidth}px)</p>`;
+
+// Script de débogage des images (conservé de l'original)
+window.addEventListener('load', function() {
+  let imgStatus = [];
+  const imgs = document.getElementsByTagName('img');
+  
+  for(let i = 0; i < imgs.length; i++) {
+    const img = imgs[i];
+    imgStatus.push({
+      src: img.src,
+      loaded: img.complete,
+      naturalWidth: img.naturalWidth
     });
-    
-    document.body.appendChild(div);
+  }
+  
+  // Créer un élément visible pour afficher les résultats
+  const div = document.createElement('div');
+  div.style.position = 'fixed';
+  div.style.bottom = '0';
+  div.style.left = '0';
+  div.style.right = '0';
+  div.style.background = 'white';
+  div.style.padding = '10px';
+  div.style.zIndex = '10000';
+  div.style.maxHeight = '150px';
+  div.style.overflow = 'auto';
+  div.style.fontSize = '10px';
+  
+  // Ajouter les informations sur les images
+  imgStatus.forEach(status => {
+    div.innerHTML += `<p>${status.src.split('/').pop()}: ${status.loaded ? '✅' : '❌'} (${status.naturalWidth}px)</p>`;
   });
-</script>
+  
+  document.body.appendChild(div);
+});
