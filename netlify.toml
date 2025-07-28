@@ -1,0 +1,76 @@
+# ==========================================================================
+# FICHIER DE CONFIGURATION NETLIFY POUR BMS VENTOUSE (VERSION FINALE CORRIGÉE)
+# ==========================================================================
+# Ce fichier centralise la configuration du déploiement sur Netlify.
+
+# --------------------------------------------------------------------------
+# SECTION BUILD : Instructions pour construire le site
+# --------------------------------------------------------------------------
+# Pour un site statique simple, il n'y a pas de commande de build.
+# Mais nous avons besoin de la section [build] pour spécifier le dossier de publication.
+[build]
+  # On laisse la commande vide, car il n'y a rien à construire.
+  command = ""
+
+  # On dit à Netlify de publier le contenu de la racine du projet.
+  # C'est ce qui inclura tous vos dossiers (contact, services, etc.).
+  publish = "."
+
+# --------------------------------------------------------------------------
+# SECTION HEADERS : En-têtes HTTP pour la sécurité et la performance
+# --------------------------------------------------------------------------
+# Ces règles sont conservées car elles sont excellentes pour la sécurité.
+
+[[headers]]
+  # Applique ces en-têtes à toutes les pages du site.
+  for = "/*"
+  [headers.values]
+    # Sécurité : Empêche le clickjacking.
+    X-Frame-Options = "DENY"
+    # Sécurité : Empêche le navigateur de "deviner" le type de contenu.
+    X-Content-Type-Options = "nosniff"
+    # Sécurité : Active la protection contre les attaques XSS (Cross-Site Scripting).
+    X-XSS-Protection = "1; mode=block"
+    # Sécurité & Vie Privée : Contrôle les informations envoyées lors de la navigation.
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Sécurité : Bloque les fonctionnalités sensibles du navigateur.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), usb=()"
+
+[[headers]]
+  # Applique une politique de cache longue pour les assets qui ne changent pas souvent.
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+
+# --------------------------------------------------------------------------
+# SECTION REDIRECTS : Redirections d'URL
+# --------------------------------------------------------------------------
+# Ces règles sont conservées.
+
+[[redirects]]
+  # Redirige les anciennes URLs vers la page d'accueil.
+  from = "/accueil"
+  to = "/"
+  status = 301 # Redirection permanente (bon pour le SEO)
+
+[[redirects]]
+  from = "/home"
+  to = "/"
+  status = 301
+
+# Redirection pour les ancres (si nécessaire)
+[[redirects]]
+  from = "/services"
+  to = "/#services" # Exemple si vous aviez une ancre sur la page d'accueil
+  status = 301
