@@ -1575,10 +1575,14 @@ body.dark-theme .header {
 /* Cartes de références améliorées */
 .references-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--grid-gap);
 }
-
+@media (max-width: 600px) {
+  .references-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .reference-card {
   background-color: var(--color-light);
   border: 1px solid var(--color-border);
