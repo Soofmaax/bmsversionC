@@ -193,21 +193,39 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   color: var(--color-light);
   transform: scale(1.04);
 }
+
+/* Correction du bouton hamburger pour meilleur fonctionnement */
 .hamburger {
   display: none;
   flex-direction: column;
+  justify-content: space-between;
   cursor: pointer;
-  gap: 5px;
-  padding: 5px;
+  height: 24px;
   background: none;
   border: none;
+  padding: 0;
+  z-index: 1001;
 }
 .hamburger span {
-  width: 25px; height: 3px;
+  display: block;
+  width: 30px;
+  height: 3px;
   background-color: var(--color-dark);
-  transition: 0.3s;
+  transition: all 0.3s ease;
   border-radius: 2px;
 }
+
+/* Animation hamburger améliorée */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-10px) rotate(-45deg);
+}
+
 .footer {
   background-color: var(--color-dark);
   color: var(--color-light);
@@ -571,8 +589,12 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 /* 6. RESPONSIVE DESIGN */
 @media (max-width: 768px) {
   .section-title { font-size: 2rem; }
-  .header .nav-links { display: none; }
-  .header .hamburger { display: flex; }
+  .header .nav-links { 
+    display: none; 
+  }
+  .header .hamburger { 
+    display: flex; 
+  }
   .hero h1 { font-size: 2.2rem; }
   .hero p { font-size: 1.1rem; }
   .footer-content, .footer-links { grid-template-columns: 1fr; }
@@ -653,9 +675,8 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   text-decoration: underline;
 }
 
-/* Styles pour le menu mobile: overlay et menu déroulant */
+/* Styles pour le menu mobile: overlay et menu déroulant - CORRIGÉ */
 .nav-overlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -664,13 +685,15 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
   background: rgba(0, 0, 0, 0.5);
   z-index: 998;
   opacity: 0;
-  transition: opacity 0.3s;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 .nav-overlay.active {
-  display: block;
   opacity: 1;
+  visibility: visible;
+  display: block;
 }
-/* nav-links mobile active state */
+/* nav-links mobile active state - CORRIGÉ */
 .nav-links.active {
   display: flex !important;
   flex-direction: column;
@@ -686,16 +709,8 @@ body.dark-theme .header { background: rgba(26,32,44,0.92); }
 .nav-links.active .nav-link {
   margin: 0.5rem 1rem;
   padding: 0.8rem 1rem;
-}
-/* Hamburger transformation en croix */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(6px, -5px);
+  text-align: center;
+  width: calc(100% - 2rem);
 }
 
 /* Statistiques sous forme de cartes */
