@@ -227,6 +227,95 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   };
 
+  // --------------------------------------------------------------------------
+  // MODULE: BOUTON "RETOUR EN HAUT"
+  // --------------------------------------------------------------------------
+  const setupBackToTop = () => {
+    const backToTopButton = document.querySelector('.back-to-top');
+    if (!backToTopButton) return;
+
+    // Apparaît quand on défile vers le bas
+    const toggleBackToTop = () => {
+      if (window.scrollY > 300) {
+        backToTopButton.classList.add('visible');
+      } else {
+        backToTopButton.classList.remove('visible');
+      }
+    };
+
+    // Retour en haut de page en douceur
+    const scrollToTop = (e) => {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    };
+
+    window.addEventListener('scroll', toggleBackToTop);
+    backToTopButton.addEventListener('click', scrollToTop);
+  };
+
+  // --------------------------------------------------------------------------
+  // MODULE: BARRE DE PROGRESSION DE DÉFILEMENT
+  // --------------------------------------------------------------------------
+  const setupScrollProgress = () => {
+    const progressBar = document.querySelector('.scroll-progress');
+    if (!progressBar) return;
+
+    const updateProgress = () => {
+      const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (window.scrollY / windowHeight) * 100;
+      progressBar.style.width = `${scrolled}%`;
+    };
+
+    window.addEventListener('scroll', updateProgress);
+    window.addEventListener('resize', updateProgress);
+  };
+
+  // --------------------------------------------------------------------------
+  // MODULE: EFFETS DE HEADER AU DÉFILEMENT
+  // --------------------------------------------------------------------------
+  const setupHeaderScroll = () => {
+    const header = document.querySelector('.header');
+    if (!header) return;
+
+    let lastScroll = 0;
+    
+    const handleHeaderVisibility = () => {
+      const currentScroll = window.scrollY;
+      const headerHeight = header.offsetHeight;
+      
+      // Détecter si on est en haut de la page
+      if (currentScroll <= 0) {
+        header.classList.remove('header-hidden');
+        header.classList.remove('header-transparent');
+        return;
+      }
+      
+      // Détecter si on est sur une bannière hero avec une image
+      const heroSection = document.querySelector('.hero-bg');
+      if (heroSection && currentScroll < headerHeight * 2) {
+        header.classList.add('header-transparent');
+      } else {
+        header.classList.remove('header-transparent');
+      }
+      
+      // Masquer/afficher le header selon la direction de défilement
+      if (currentScroll > lastScroll && currentScroll > headerHeight) {
+        // Défilement vers le bas
+        header.classList.add('header-hidden');
+      } else {
+        // Défilement vers le haut
+        header.classList.remove('header-hidden');
+      }
+      
+      lastScroll = currentScroll;
+    };
+
+    window.addEventListener('scroll', handleHeaderVisibility);
+  };
+
   // ==========================================================================
   // INITIALISATION DE TOUS LES MODULES
   // ==========================================================================
@@ -237,6 +326,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollspy();
     setupDarkMode();
     setupReferencesCarousel();
+    setupBackToTop();
+    setupScrollProgress();
+    setupHeaderScroll();
   } catch (error) {
     console.error("Erreur lors de l'initialisation des scripts du site :", error);
   }
