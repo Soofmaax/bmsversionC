@@ -2054,3 +2054,47 @@ mark, .highlight {
     width: calc(100% - 4rem);
   }
 }
+/* ==========================================================================
+   === PATCH CORRECTIF POUR MENU MOBILE - V1.0 ===
+   ========================================================================== */
+
+/* 
+ * Correction n°1 : Bloquer le scroll de la page quand le menu est ouvert.
+ * On cible le `body` quand le menu `.nav-links` a la classe `.active`.
+ * Cela nécessite que votre JavaScript ajoute bien la classe `.active` au menu.
+*/
+body:has(.nav-links.active) {
+  overflow: hidden;
+}
+
+/* 
+ * Correction n°2 : Positionner le menu déroulant correctement.
+ * On s'assure qu'il est AU-DESSUS de l'overlay flou et qu'il remplit l'écran.
+*/
+.nav-links.active {
+  /* On le place au-dessus de l'overlay (qui est à z-index: 1500) */
+  z-index: 1501 !important; 
+  
+  /* On s'assure qu'il commence juste sous le header */
+  top: calc(var(--promo-banner-height) + var(--header-height)) !important;
+  
+  /* On lui donne la hauteur restante de l'écran pour éviter le "trou" en bas */
+  height: calc(100vh - var(--promo-banner-height) - var(--header-height)) !important;
+  
+  /* On ajoute une barre de scroll si le menu est plus grand que l'écran */
+  overflow-y: auto !important; 
+  
+  /* On s'assure qu'il prend toute la largeur */
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+}
+
+/* 
+ * Correction n°3 : S'assurer que le header reste au-dessus de tout.
+ * Le bouton hamburger doit rester cliquable pour fermer le menu.
+*/
+.header {
+  /* On le place au-dessus du menu et de l'overlay */
+  z-index: 1502 !important; 
+}
