@@ -2059,3 +2059,8 @@ body {
   outline: 2px solid var(--color-primary);
   border-radius: 6px;
 }
+/* Masquer la promo-banner quand le menu mobile est ouvert */
+body.menu-open .promo-banner {
+  display: none !important;
+}
+
