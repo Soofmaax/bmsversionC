@@ -1,0 +1,96 @@
+/* ================== BLOC FAQ FINAL (UTILISER CE BLOC POUR MAINTENANCE) ================== */
+.faq-container {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.faq-item {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-base);
+  overflow: hidden;
+  transition: var(--transition-base);
+}
+
+.faq-item:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.faq-question {
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  padding: 1rem 1.5rem;
+  width: 100%;
+  text-align: left;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  border: none;
+  position: relative;
+  transition: background-color 0.3s;
+}
+
+.faq-question::after {
+  content: "\f107";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s;
+}
+
+.faq-item.is-open .faq-question::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.faq-item.is-open .faq-question {
+  color: var(--color-primary);
+  background-color: rgba(255, 140, 66, 0.05);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  background-color: var(--color-light-alt);
+  padding: 0 1.5rem;
+  transition: max-height 0.3s cubic-bezier(.4,0,.2,1), padding 0.3s;
+  color: var(--color-text-muted);
+}
+
+.faq-item.is-open .faq-answer {
+  padding: 1rem 1.5rem;
+}
+
+@media (max-width: 600px) {
+  :root {
+    --promo-banner-height: 70px;
+  }
+  
+  .promo-banner {
+    font-size: 1rem;
+    padding: 0 0.7rem;
+  }
+  
+  .faq-answer, 
+  .faq-item.is-open .faq-answer {
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+  }
+  
+  .btn {
+    min-width: 0;
+    width: 100%;
+    padding: 0.8rem 1rem;
+  }
+  
+  .hero-buttons {
+    width: 100%;
+  }
+  
+  .footer-bottom-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
