@@ -218,20 +218,41 @@ input, button, textarea, select {
   margin-right: auto;
 }
 
+/* === BLOC CORRIGÉ POUR LA BANNIÈRE ET LE HEADER === */
+
+/* On rend la bannière fixe et on la colle TOUT en haut */
+.promo-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001; /* On s'assure qu'elle est au-dessus du header */
+  height: var(--promo-banner-height);
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+}
+
+/* On rend le header fixe et on le décale vers le bas de la hauteur de la bannière */
 .header {
+  position: fixed;
+  top: var(--promo-banner-height); /* <-- C'EST LA CORRECTION LA PLUS IMPORTANTE */
+  left: 0; 
+  right: 0;
+  z-index: 1000; /* Juste en dessous de la bannière */
   background: rgba(255,255,255,0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  position: fixed;
-  top: 0; 
-  left: 0; 
-  right: 0;
-  z-index: var(--z-header);
   border-bottom: 1px solid var(--color-border);
   transition: transform 0.3s ease, background 0.4s;
 }
 
-/* Header comportement scroll */
+/* Header comportement scroll (ceci peut être réactivé avec du JS si besoin) */
 .header.header-hidden {
   transform: translateY(-100%);
 }
@@ -452,6 +473,7 @@ body.dark-theme .header {
   color: #a0aec0;
   gap: 1rem;
 }
+
 
 /* 4. COMPOSANTS PRINCIPAUX (Boutons, Cartes, etc.) */
 .btn {
@@ -1979,229 +2001,57 @@ mark, .highlight {
   align-items: center;
 }
 
-/* ===== PATCH : Menu hamburger, Responsive nav, Sticky header, Dark mode ===== */
-
-/* Affichage hamburger et responsive nav */
-@media (max-width: 900px) {
-  .hamburger {
-    display: flex;
-  }
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: var(--header-height);
-    right: 0;
-    background: var(--color-light);
-    width: 100vw;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.10);
-    z-index: var(--z-header);
-    padding: 2rem 0;
-    gap: 2rem;
-    align-items: flex-start;
-  }
-  .nav.open .nav-links, /* Ou .nav.active selon ton JS */
-  .nav-links.open {
-    display: flex;
-  }
-  .nav-link {
-    color: var(--color-dark);
-    font-size: 1.1rem;
-    padding: 1rem 2rem;
-    width: 100%;
-  }
-}
-
-/* Responsive grid pour le footer et les sections en colonnes */
-@media (max-width: 900px) {
-  .footer-content,
-  .footer-links,
-  .services-grid,
-  .case-study,
-  .case-study.reverse {
-    grid-template-columns: 1fr !important;
-    gap: 2rem;
-  }
-}
-
-/* Correction du dark mode */
-body.dark-theme,
-:root:has(body.dark-theme) {
-  --color-light: #1a202c;
-  --color-light-alt: #2d3748;
-  --color-text: #e2e8f0;
-  --color-text-muted: #b0c0d0;
-  --color-border: #4a5568;
-  --color-dark: #ffffff;
-  --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.2);
-  --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25);
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-light: #1a202c;
-    --color-light-alt: #2d3748;
-    --color-text: #e2e8f0;
-    --color-text-muted: #b0c0d0;
-    --color-border: #4a5568;
-    --color-dark: #ffffff;
-    --box-shadow-base: 0 5px 20px rgba(0, 0, 0, 0.2);
-    --box-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.25);
-  }
-}
-
-/* Correction header sticky : évite chevauchement avec le contenu */
-body {
-  padding-top: calc(var(--header-height) + var(--promo-banner-height));
-}
-
-/* Amélioration accessibilité : hamburger focus */
-.hamburger:focus-visible {
-  outline: 2px solid var(--color-primary);
-  border-radius: 6px;
-}
-/* Masquer la promo-banner quand le menu mobile est ouvert */
-body.menu-open .promo-banner {
-  display: none !important;
-}
-
 /* ==========================================================================
-   MENU HAMBURGER MOBILE  fix buxg ========================================================================== */
+   6. RESPONSIVE & MENU MOBILE (VERSION FINALE)
+   ========================================================================== */
 
-/* Bouton hamburger - Visible uniquement sur mobile */
-.hamburger {
-  display: block;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 30px;
-  height: 30px;
-  z-index: 1001;
-}
-
-/* Les trois barres du hamburger */
-.hamburger span {
-  display: block;
-  height: 3px;
-  width: 100%;
-  background-color: #333;
-  border-radius: 3px;
-  transition: all 0.3s ease;
-  transform-origin: center;
-}
-
-/* Animation quand le menu est ouvert */
-.hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(7px, -6px);
-}
-
-/* Overlay sombre quand le menu mobile est ouvert */
-.nav-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-}
-
-.nav-overlay.active {
-  display: block;
-}
-
-/* Styles mobile pour le menu */
 @media (max-width: 768px) {
-  /* Cacher le hamburger sur desktop */
+
+  /* 1. On affiche le bouton hamburger */
   .hamburger {
+    display: flex; 
+  }
+
+  /* 2. On cache les liens de navigation textuels */
+  .nav-links {
+    display: none; /* Caché par défaut */
+    
+    /* 3. On définit le style du menu déroulant quand il sera ouvert */
+    position: fixed; /* Positionné par rapport à la fenêtre */
+    /* Il doit commencer sous le header, qui est lui-même sous la bannière */
+    top: calc(var(--promo-banner-height) + var(--header-height)); 
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--color-light);
+    padding: 1rem 0;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-top: 1px solid var(--color-border);
+    gap: 0;
+  }
+
+  /* 4. Règle qui sera activée par votre JavaScript pour AFFICHER le menu */
+  .nav-links.active {
     display: flex;
   }
-  
-  /* Navigation mobile */
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background-color: #fff;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 80px 20px 20px;
-    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
-    transition: right 0.3s ease;
-    z-index: 1000;
-  }
-  
-  /* Menu ouvert */
-  .nav-links.active {
-    right: 0;
-  }
-  
-  /* Liens dans le menu mobile */
-  .nav-links li {
-    margin: 0;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .nav-links li:last-child {
-    border-bottom: none;
-  }
-  
+
+  /* 5. Styles pour les liens à l'intérieur du menu ouvert */
   .nav-link {
-    display: block;
-    padding: 15px 0;
-    font-size: 1.1rem;
-    color: #333;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 0;
+    color: var(--color-dark);
+  }
+
+  .nav-link:hover, .nav-link.active {
+    transform: none;
+    background-color: var(--color-primary-light);
   }
   
-  .nav-link:hover,
-  .nav-link.active {
-    color: #FF6B35;
+  .nav-link.btn {
+    margin: 1rem auto;
+    width: calc(100% - 4rem);
   }
 }
 
-/* Styles desktop - cacher le hamburger */
-@media (min-width: 769px) {
-  .hamburger {
-    display: none;
-  }
-  
-  .nav-overlay {
-    display: none !important;
-  }
-  
-  /* Navigation desktop normale */
-  .nav-links {
-    position: static;
-    width: auto;
-    height: auto;
-    background: none;
-    flex-direction: row;
-    padding: 0;
-    box-shadow: none;
-  }
-  
-  .nav-links li {
-    margin: 0 0 0 2rem;
-  }
-  
-  .nav-link {
-    padding: 0.5rem 0;
-    font-size: 1rem;
-  }
-}
