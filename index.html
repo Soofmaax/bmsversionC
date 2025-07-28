@@ -75,29 +75,32 @@
    EN-TÊTE PRINCIPAL
    ========================================================================== -->
 <header class="header">
-    <div class="container">
-        <div class="nav">
-            <a href="/" class="logo" aria-label="Retour à l'accueil de BMS Ventouse">
-                <img src="/android-chrome-192x192.png" alt="Logo BMS Ventouse" width="40" height="40">
-                <span class="logo-text">
-                    <span class="bms">BMS</span> <span class="ventouse">Ventouse</span>
-                </span>
-            </a>
-            <nav id="navLinks" class="nav-links">
-                <a href="/" class="nav-link active">Accueil</a>
-                <a href="/services/" class="nav-link">Services</a>
-                <a href="/realisations/" class="nav-link">Références</a>
-                <a href="/contact/" class="nav-link">Contact</a>
-            </nav>
-            <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
+  <div class="container">
+    <div class="nav">
+      <a href="/" class="logo" aria-label="Retour à l'accueil de BMS Ventouse">
+        <img src="/android-chrome-192x192.png" alt="Logo BMS Ventouse" width="40" height="40">
+        <span class="logo-text">
+          <span class="bms">BMS</span> <span class="ventouse">Ventouse</span>
+        </span>
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav>
+        <ul id="navLinks" class="nav-links">
+          <li><a href="/" class="nav-link active">Accueil</a></li>
+          <li><a href="/services/" class="nav-link">Services</a></li>
+          <li><a href="/realisations/" class="nav-link">Références</a></li>
+          <li><a href="/contact/" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
     </div>
+  </div>
 </header>
-
+<!-- Overlay pour le menu mobile -->
+<div class="nav-overlay" id="navOverlay"></div>
     <!-- Bannière promotionnelle pour les nouveaux clients -->
     <!--
       Bannière de bienvenue : placée juste après l'en‑tête pour mettre en avant
